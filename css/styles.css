@@ -57,3 +57,30 @@ a, p {
     text-indent: 30px;
     font-family: Inter;
 }
+
+/* Legend */
+.legend {
+  background: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+}
+
+.legend h4 {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.legend-circles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -80,30 +80,95 @@ document.addEventListener("DOMContentLoaded", function () {
   // Render the points.
   const MAX_SAMPLES_PER_SEGMENT = 30;
 
+  let min
+
+  // Keep track of the minimum and maximum travel times.
+  let minTime = Infinity;
+  let maxTime = -Infinity;
+
   segments.forEach(segment => {
     const coords = segment.shape.map(p => [p.latitude, p.longitude]);
 
     const stats = segment.segmentTimeResults[0];
     if (!stats) return;
 
+    // Get the mean and standard deviation of the car speeds.
     const mean = stats.averageSpeed;
     const std = stats.standardDeviationSpeed;
+    // Get the mean and standard deviation of the travel times.
+    const meanTime = stats.averageTravelTime;
+    const stdTime = stats.travelTimeStandardDeviation;
+    // Get the number of cars on the segment.
     const sampleSize = Math.min(stats.sampleSize, MAX_SAMPLES_PER_SEGMENT);
+    // Get the speed limit.
     const speedLimit = segment.speedLimit;
 
+    // For each car, draw a circle with a randomly sampled speed and travel time.
     for (let i = 0; i < sampleSize; i++) {
-      const speed = randomNormal(mean, std);
+      // Randomly sample a speed for the car.
+      const speed = Math.max(0, randomNormal(mean, std));
+      // Randomly sample a travel time for the car.
+      const travelTime = Math.max(0, randomNormal(meanTime, stdTime));
       const point = randomPointOnPolyline(coords);
-
-    const minSpeed = 0;
-    const maxSpeed = speedLimit;
-
+      
+      // Update the min and max travel times.
+      if ((travelTime < minTime) && (travelTime > 0)) {
+        minTime = travelTime;
+      }
+      if (travelTime > maxTime) {
+        maxTime = travelTime;
+      }
+      
+      // The radius represents the travel time.
+      // The color represents the speed.
       L.circleMarker(point, {
-        radius: 3,
-        fillColor: getColor(speed, minSpeed, speedLimit),
+        radius: travelTime / 25,
+        fillColor: getColor(speed, 0, speedLimit),
         color: null,
         fillOpacity: 0.25
       }).addTo(map);
     }
   });
+
+  // Calculate the minimum and maximum travel times in minutes.
+  minTime = minTime / 60;
+
+  // Calculate the maximum travel time in minutes.
+  maxTime = maxTime / 60;
+
+  let midTime = (minTime + maxTime) / 2;
+  
+  // Create a legend.
+  const legend = L.control({ position: 'bottomright' });
+
+  legend.onAdd = function () {
+    const div = L.DomUtil.create('div', 'legend');
+
+    div.innerHTML = `
+      <h4>Travel Time (min)</h4>
+      <div class="legend-circles">
+        <div class="legend-item">
+          <svg width="60" height="60">
+            <circle cx="30" cy="30" r="${(minTime * 60) / 25}" fill="grey" fill-opacity="0.25"/>
+          </svg>
+          <span>${minTime.toFixed(1)} min</span>
+        </div>
+        <div class="legend-item">
+          <svg width="60" height="60">
+            <circle cx="30" cy="30" r="${(midTime * 60) / 25}" fill="grey" fill-opacity="0.25"/>
+          </svg>
+          <span>${midTime.toFixed(1)} min</span>
+        </div>
+        <div class="legend-item">
+          <svg width="60" height="60">
+            <circle cx="30" cy="30" r="${(maxTime * 60) / 25}" fill="grey" fill-opacity="0.25"/>
+          </svg>
+          <span>${maxTime.toFixed(1)} min</span>
+        </div>
+      </div>
+    `;
+    return div;
+  };
+
+  legend.addTo(map);
 });
