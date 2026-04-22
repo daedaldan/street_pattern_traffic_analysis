@@ -58,6 +58,27 @@ a, p {
     font-family: Inter;
 }
 
+/* Title */
+.map-title {
+  background: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+  font-family: Inter, sans-serif;
+}
+
+.map-title h2 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.map-title p {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
+
 /* Legend */
 .legend {
   background: white;
@@ -83,4 +104,30 @@ a, p {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.legend-gradient {
+  width: calc(100% + 28px);
+  margin-left: -14px;
+  margin-right: -14px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  margin-top: 4px;
+}
+
+.gradient-bar {
+  height: 12px;
+  width: 100%;
+  border-radius: 4px;
+  background: linear-gradient(to right, rgb(255,0,0), rgb(128,128,0), rgb(0,255,0));
+}
+
+.gradient-labels {
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% + 110px); 
+  margin-left: -55px;
+  margin-right: -55px;
+  font-size: 11px;
+  margin-top: 2px;
 }

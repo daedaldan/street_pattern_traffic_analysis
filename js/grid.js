@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const segments = data.network.segmentResults;
 
   // Set up the map.
-  const map = L.map('map');
+  const map = L.map('map', { zoomControl: false });
 
   // Auto-fit bounds from all coordinates.
   let allCoords = [];
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   map.fitBounds(allCoords);
 
+
   // Draw the map.
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap &copy; CARTO',
@@ -29,6 +30,23 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => {
     map.invalidateSize();
   }, 100);
+
+  // Create a title.
+  const title = L.control({ position: 'topleft' });
+
+  title.onAdd = function () {
+    const div = L.DomUtil.create('div', 'map-title');
+    div.innerHTML = `
+      <h2>Midtown Manhattan Traffic</h2>
+      <h3>August 7th, 2024, 10 AM to 12 PM</h3>
+    `;
+    return div;
+  };
+
+  title.addTo(map);
+
+  // Add zoom control below the title.
+  L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
   // Create a normal distribution.
   function randomNormal(mean, stdDev) {
@@ -164,6 +182,14 @@ document.addEventListener("DOMContentLoaded", function () {
             <circle cx="30" cy="30" r="${(maxTime * 60) / 25}" fill="grey" fill-opacity="0.25"/>
           </svg>
           <span>${maxTime.toFixed(1)} min</span>
+        </div>
+      </div>
+      <h4>Speed</h4>
+      <div class="legend-gradient">
+        <div class="gradient-bar"></div>
+        <div class="gradient-labels">
+          <span>0</span>
+          <span>Speed Limit</span>
         </div>
       </div>
     `;
