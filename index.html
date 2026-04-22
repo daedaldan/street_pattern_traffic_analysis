@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Load Leatlet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
     <div class="container">
@@ -28,13 +30,17 @@
         <p>include some information and context here</p>
         <p>explain how this street pattern influences traffic congestion</p>
         <p>introduce the city area we are visualizing and how it represents what we want to show</p>
-        <p>insert visualization here</p>
+        <!-- Grid Visualization -->
+        <div id="map"></div>
 
         <h2>References</h2>
         <p>1. Insert reference here</p>
     </div>
     <!-- Load D3.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="js/script.js"></script>
+    <!-- Load Leaflet.js-->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- Load the grid visualization -->
+    <script type="module" src="js/grid.js"></script>
 </body>
 </html>
