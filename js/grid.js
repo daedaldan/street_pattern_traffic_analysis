@@ -104,6 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let minTime = Infinity;
   let maxTime = -Infinity;
 
+  // Draw each road segment.
   segments.forEach(segment => {
     const coords = segment.shape.map(p => [p.latitude, p.longitude]);
 
