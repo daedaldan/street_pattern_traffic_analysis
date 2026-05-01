@@ -13,7 +13,8 @@
     font-family: Arial, sans-serif;
 }
 
-#map {
+/* Leaflet map containers used in the HTML (map-grid, map-radial, etc.) */
+.map-container {
     height: 50vh;
     width: 100%;
 }
@@ -46,11 +47,23 @@ h1, h2 {
     font-family: Inter;
 }
 
+#visualization-title {
+  line-height: 1.1;
+}
+
 h3 {
     color: gray;
     font-family: Inter;
     font-style: italic;
     font-weight: 300;
+}
+
+h4 {
+    color: gray;
+    font-family: Inter;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.8em;
 }
 
 a, p {

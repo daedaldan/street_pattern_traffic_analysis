@@ -1,13 +1,13 @@
 // Import the function to create the visualization.
 import { createVisualization } from './visualization.js';
 // Import the JSON file with the data for the grid visualization..
-import data from '../data/grid/jobs-9079201-results-Midtown_Manhattan.json' with { type: 'json' };
+import data from '../data/radial/jobs-9125826-results-Dupont_Circle.json' with { type: 'json' };
 
 // Create the visualization once the DOM is loaded.
 document.addEventListener("DOMContentLoaded", () => {
   createVisualization({
-    containerId: "map-grid",
+    containerId: "map-radial",
     data,
-    title: "Midtown Manhattan Traffic"
+    title: "Dupont Circle Traffic"
   });
 });

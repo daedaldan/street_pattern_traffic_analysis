@@ -14,8 +14,10 @@
 </head>
 <body>
     <div class="container">
+        <!-- Heading -->
         <h1>From Gridlock to Insight: A Visual Approach to the Urban Traffic Crisis</h1>
         <h3>Carolyn Lee, Lasya Muthyam, Daniel Wang, Gavin Crisologo, Nathan James</h3>
+        <!-- Introduction -->
         <h2>Introduction</h2>
         <p>Traffic congestion is a significant problem that is associated with longer travel times, more traffic accidents, and increased air pollution. These impacts can cause further issues, such as higher costs of goods from increased shipping times, people missing important travel connections or medical appointments, and higher rates of asthma and respiratory disease.</p>
 
@@ -23,9 +25,11 @@
 
         <p>All of our visualizations use data from the TomTom Traffic Stats API, which provides detailed statistics on travel times, travel speeds, route accessibility, and congestion bottlenecks using anonymized data gathered from millions of navigation devices. Because the dataset provides hourly records of street-level traffic data from cities across the world, it is a significant source of data that enables us to provide a thorough and detailed analysis on how street patterns influence traffic density in different geographical regions and times of day.</p>
 
+        <!-- Overview -->
         <h2>Street Pattern Types</h2>
         <p>provide a high level overview of the street pattern types</p>
 
+        <!-- Grid -->
         <h2>1. Grid Pattern</h2>
         <p>The grid layout, where streets intersect at right angles, is the most common street pattern and is often found in cities with dense downtowns, such as Manhattan, Chicago, and San Francisco. Grid layouts provide a variety of features that help reduce traffic congestion. For example, they help disperse traffic by providing a variety of routes from one place to another. If traffic is congested in one area, it is easy for drivers to find another route to the same destination that avoids the congested area.</p>
         <p>Grid layouts also have high walkability and make it easier to implement cycling paths, so people are more likely to walk and ride bikes, which also helps decrease traffic congestion. Traffic flow is predictable as well, and it is easy to provide directions in terms of cardinal directions.</p>
@@ -33,7 +37,40 @@
         <p>An archetypical example of the grid layout is Midtown Manhattan. We have visualized the traffic patterns in Midtown Manhattan from W 40th St to W 59th St and 5th Ave to 8th Ave below. The abundance of traffic signals at every block significantly reduces overall vehicle speeds by forcing cars to frequently slow down and stop, as represented by the plethora of red dots across the map. However, the presence of streets where vehicles have faster speeds and shorter travel times, such as 8th Ave, 6th Ave, and Central Park South are also represented by a larger number of smaller green dots at these locations. Through the grid layout, these streets provide travelers with alternate routes to their destinations that avoid the more congested areas. The use of numbered streets, which is commonly found in grid layouts, also makes navigation easier for commuters.</p>
         <br>
         <!-- Grid Visualization -->
-        <div id="map"></div>
+        <div id="map-grid" class="map-container"></div>
+        <br>
+
+        <h2>2. Radial Pattern</h2>
+        <p>Radial street patterns are characterized by roads that extend outward from a central point, often forming a spoke-like structure. These roads are typically connected by circular intersections or ring roads, creating a system where traffic is directed toward key hubs. This type of layout is commonly found in cities that emphasize centralized planning, such as Washington, D.C.</p>
+        <p>One of the defining features of radial street patterns is their ability to provide efficient access to central locations. Major avenues often lead directly to important landmarks, business districts, or government centers, reducing travel distance for commuters heading into the city. However, this same structure can lead to significant congestion, as multiple high-capacity roads converge at a limited number of intersections.</p>
+        <p>Radial layouts also influence how traffic moves throughout the city. Traffic tends to flow inward toward the center during the morning and outward in the evening, creating predictable congestion patterns. While ring roads can help redistribute traffic, bottlenecks frequently occur at central hubs and major intersections where radial and connecting roads meet.</p>
+        <p>Dupont Circle is a good example of a radial street pattern within Washington, D.C as several major avenues, including Massachusetts Avenue, Connecticut Avenue, and New Hampshire Avenue, converge at a central circular intersection. This creates a highly connected but complex traffic environment. The radial design allows vehicles to reach the city center efficiently from multiple directions. However, because these roads intersect at a single point, Dupont Circle experiences significant congestion, particularly during peak commuting hours. The circular intersection further complicates traffic flow, as vehicles must navigate merging lanes and continuous movement patterns. Unlike grid layouts, which offer multiple alternate routes, the radial structure limits flexibility. Drivers traveling across the city often must pass through or around central hubs like Dupont Circle, increasing travel time and contributing to congestion buildup.
+        </p>
+        <br>
+        <!-- Radial Visualization -->
+        <div id="map-radial" class="map-container"></div>
+        <br>
+
+        <h2>3. Linear Pattern</h2>
+        <p>Insert analysis here</p>
+        <br>
+        <!-- Linear Visualization -->
+        <div id="map-linear" class="map-container"></div>
+        <br>
+
+        <h2>4. Curvilinear/Suburban Pattern</h2>
+        <p>Insert analysis here</p>
+        <br>
+        <!-- Curvilinear/Suburban Visualization -->
+        <div id="map-curvilinear" class="map-container"></div>
+        <br>
+
+        <h2>5. Cul-de-Sac Network Pattern</h2>
+        <p>Insert analysis here</p>
+        <br>
+        <!-- Cul-de-Sac Network Visualization -->
+        <div id="map-culdesac" class="map-container"></div>
+        <br>
 
         <h2>References</h2>
         <p>1. Insert reference here</p>
@@ -44,5 +81,13 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <!-- Load the grid visualization -->
     <script type="module" src="js/grid.js"></script>
+    <!-- Load the radial visualization -->
+    <script type="module" src="js/radial.js"></script>
+    <!-- Load the linear visualization -->
+    <script type="module" src="js/linear.js"></script>
+    <!-- Load the curvilinear visualization -->
+    <script type="module" src="js/curvilinear.js"></script>
+    <!-- Load the cul-de-sac visualization -->
+    <script type="module" src="js/culdesac.js"></script>
 </body>
 </html>
