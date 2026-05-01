@@ -85,9 +85,9 @@ export function createVisualization({ containerId, data, title }) {
         let totalLength = 0;
 
         for (let i = 0; i < coords.length - 1; i++) {
-            const dx = coords[i+1][0] - coords[i][0];
-            const dy = coords[i+1][1] - coords[i][1];
-            const len = Math.sqrt(dx*dx + dy*dy);
+            const dx = coords[i + 1][0] - coords[i][0];
+            const dy = coords[i + 1][1] - coords[i][1];
+            const len = Math.sqrt(dx * dx + dy * dy);
             lengths.push(len);
             totalLength += len;
         }
@@ -99,8 +99,8 @@ export function createVisualization({ containerId, data, title }) {
             if (r <= lengths[i]) {
                 const t = r / lengths[i];
                 return [
-                    coords[i][0] + t * (coords[i+1][0] - coords[i][0]),
-                    coords[i][1] + t * (coords[i+1][1] - coords[i][1])
+                    coords[i][0] + t * (coords[i + 1][0] - coords[i][0]),
+                    coords[i][1] + t * (coords[i + 1][1] - coords[i][1])
                 ];
             }
             r -= lengths[i];
@@ -147,7 +147,7 @@ export function createVisualization({ containerId, data, title }) {
             const travelTime = Math.max(0, randomNormal(meanTime, stdTime));
             // Get a random point on the segment for the car.
             const point = randomPointOnPolyline(coords);
-            
+
             // Update the min and max travel times.
             if ((travelTime < minTime) && (travelTime > 0)) {
                 minTime = travelTime;
@@ -155,7 +155,7 @@ export function createVisualization({ containerId, data, title }) {
             if (travelTime > maxTime) {
                 maxTime = travelTime;
             }
-            
+
             // Draw a circle marker for the car.
             // The radius represents the travel time.
             // The color represents the speed.
