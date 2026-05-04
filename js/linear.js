@@ -8,6 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   createVisualization({
     containerId: "map-linear",
     data,
-    title: "??? Traffic"
+    title: "Wuppertal Linear Traffic"
   });
 });
