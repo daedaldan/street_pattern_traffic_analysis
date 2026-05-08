@@ -38,97 +38,179 @@
             and detailed analysis on how street patterns influence traffic density in different geographical regions and
             times of day.</p>
 
+        <div class="road-filter">
+            <label for="road-type-select">Choose a road type visualization:</label>
+            <select id="road-type-select">
+                <option value="all">All road types</option>
+                <option value="grid">Grid Pattern</option>
+                <option value="radial">Radial Pattern</option>
+                <option value="linear">Linear Pattern</option>
+                <option value="curvilinear">Curvilinear/Suburban Pattern</option>
+                <option value="culdesac">Cul-de-Sac Network Pattern</option>
+            </select>
+        </div>
+
         <!-- Grid -->
+        <section class="road-block" data-road-type="grid">
         <h2>1. Grid Pattern</h2>
-        <p>The grid layout, where streets intersect at right angles, is the most common street pattern and is often
-            found in cities with dense downtowns, such as Manhattan, Chicago, and San Francisco. Grid layouts provide a
-            variety of features that help reduce traffic congestion. For example, they help disperse traffic by
-            providing a variety of routes from one place to another. If traffic is congested in one area, it is easy for
-            drivers to find another route to the same destination that avoids the congested area.</p>
-        <p>Grid layouts also have high walkability and make it easier to implement cycling paths, so people are more
-            likely to walk and ride bikes, which also helps decrease traffic congestion. Traffic flow is predictable as
-            well, and it is easy to provide directions in terms of cardinal directions.</p>
-        <p>Nevertheless, there are distinct downsides of grid layouts compared to other street patterns. It can be easy
-            for traffic congestion to occur at intersections, since frequent intersections at every block increase the
-            number of stop signs or traffic signals, which decreases overall travel speeds. Furthermore, grid layouts do
-            not adapt well to natural terrain, such as rivers and hills.</p>
-        <p>An archetypical example of the grid layout is Midtown Manhattan. We have visualized the traffic patterns in
-            Midtown Manhattan from W 40th St to W 59th St and 5th Ave to 8th Ave below. The abundance of traffic signals
-            at every block significantly reduces overall vehicle speeds by forcing cars to frequently slow down and
-            stop, as represented by the plethora of red dots across the map. However, the presence of streets where
-            vehicles have faster speeds and shorter travel times, such as 8th Ave, 6th Ave, and Central Park South are
-            also represented by a larger number of smaller green dots at these locations. Through the grid layout, these
-            streets provide travelers with alternate routes to their destinations that avoid the more congested areas.
-            The use of numbered streets, which is commonly found in grid layouts, also makes navigation easier for
-            commuters.</p>
+        <p>Grid street networks use perpendicular streets and frequent intersections, creating many route choices between origins and destinations. They are common in dense downtown areas because they support navigation, walkability, and multimodal travel. In this map, Midtown Manhattan shows both the benefit of alternate paths and the cost of frequent signalized intersections. The pattern works best where connectivity and accessibility are priorities, but it can slow traffic at busy crossing points.</p>
         <br>
         <!-- Grid Visualization -->
         <div id="map-grid" class="map-container"></div>
+        <table class="road-summary-table">
+            <caption>Grid Pattern: Quick Pros and Cons</caption>
+            <thead>
+                <tr>
+                    <th>Pros</th>
+                    <th>Cons</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Many alternate routes help distribute traffic.</td>
+                    <td>Frequent intersections can create stop-and-go delay.</td>
+                </tr>
+                <tr>
+                    <td>Easy navigation with predictable blocks and directions.</td>
+                    <td>Signal density can lower average corridor speeds.</td>
+                </tr>
+                <tr>
+                    <td>Supports walking, cycling, and transit access well.</td>
+                    <td>Less adaptable to irregular terrain like hills or rivers.</td>
+                </tr>
+            </tbody>
+        </table>
         <br>
+        </section>
 
+        <section class="road-block" data-road-type="radial">
         <h2>2. Radial Pattern</h2>
-        <p>Radial street patterns are characterized by roads that extend outward from a central point, often forming a
-            spoke-like structure. These roads are typically connected by circular intersections or ring roads, creating
-            a system where traffic is directed toward key hubs. This type of layout is commonly found in cities that
-            emphasize centralized planning, such as Washington, D.C.</p>
-        <p>One of the defining features of radial street patterns is their ability to provide efficient access to
-            central locations. Major avenues often lead directly to important landmarks, business districts, or
-            government centers, reducing travel distance for commuters heading into the city. However, this same
-            structure can lead to significant congestion, as multiple high-capacity roads converge at a limited number
-            of intersections.</p>
-        <p>Radial layouts also influence how traffic moves throughout the city. Traffic tends to flow inward toward the
-            center during the morning and outward in the evening, creating predictable congestion patterns. While ring
-            roads can help redistribute traffic, bottlenecks frequently occur at central hubs and major intersections
-            where radial and connecting roads meet.</p>
-        <p>Dupont Circle is a good example of a radial street pattern within Washington, D.C as several major avenues,
-            including Massachusetts Avenue, Connecticut Avenue, and New Hampshire Avenue, converge at a central circular
-            intersection. This creates a highly connected but complex traffic environment. The radial design allows
-            vehicles to reach the city center efficiently from multiple directions. However, because these roads
-            intersect at a single point, Dupont Circle experiences significant congestion, particularly during peak
-            commuting hours. The circular intersection further complicates traffic flow, as vehicles must navigate
-            merging lanes and continuous movement patterns. Unlike grid layouts, which offer multiple alternate routes,
-            the radial structure limits flexibility. Drivers traveling across the city often must pass through or around
-            central hubs like Dupont Circle, increasing travel time and contributing to congestion buildup.
-        </p>
+        <p>Radial networks organize major roads like spokes leading to central hubs, often linked by circles or ring roads. This design gives fast direct access to downtown cores and major institutions, which is useful for centralized cities like Washington, D.C. In the Dupont Circle example, converging avenues create strong connectivity but also recurring bottlenecks at the hub. Radial layouts are effective for center-focused travel demand but can struggle when cross-city traffic needs flexibility.</p>
         <br>
         <!-- Radial Visualization -->
         <div id="map-radial" class="map-container"></div>
+        <table class="road-summary-table">
+            <caption>Radial Pattern: Quick Pros and Cons</caption>
+            <thead>
+                <tr>
+                    <th>Pros</th>
+                    <th>Cons</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Direct routes to central districts reduce travel distance.</td>
+                    <td>Convergence at hubs creates frequent peak-hour bottlenecks.</td>
+                </tr>
+                <tr>
+                    <td>Clear hierarchy of major corridors and connectors.</td>
+                    <td>Limited alternate routes for cross-town movement.</td>
+                </tr>
+                <tr>
+                    <td>Ring roads can help redistribute some inbound traffic.</td>
+                    <td>Complex merging and circulation at central circles.</td>
+                </tr>
+            </tbody>
+        </table>
         <br>
+        </section>
 
+        <section class="road-block" data-road-type="linear">
         <h2>3. Linear Pattern</h2>
-        <p>Linear street patterns are defined by roads that run primarily in parallel lines, often following a natural corridor such as a river valley, railway, or mountainous terrain. Unlike radial or grid systems, linear layouts tend to stretch in one dominant direction, creating a long, narrow urban form. This type of structure is commonly found in cities where geography strongly influences development, such as Wuppertal.</p>
-        <p>One of the defining features of a linear road network is its efficiency along a single axis. Major roads act as primary arteries, allowing traffic to flow smoothly from one end of the city to the other. In Wuppertal, this pattern follows the Wupper River valley, where roads, rail lines, and development are concentrated in a tight corridor. This creates a highly accessible system for movement along the length of the city, often supported by strong public transportation infrastructure.</p>
-        <p>However, this same structure can limit flexibility. Because most roads run in parallel, there are fewer alternative routes when congestion occurs. If a primary road becomes blocked or overloaded, traffic has limited options for rerouting. This can lead to bottlenecks, especially at key intersections or where smaller connecting roads feed into the main corridor.</p>
-        <p>Linear layouts also shape traffic patterns in a unique way. Instead of converging toward a central hub, traffic flows tend to move back and forth along the same corridor. Peak congestion often occurs along the main route rather than at a single central point. This creates a more distributed, but still concentrated, form of traffic buildup—less chaotic than radial systems, but potentially just as slow during high-demand periods.</p>
-        <p>A well-known example of this structure in Wuppertal is the corridor beneath the Wuppertal Suspension Railway (Schwebebahn), which runs directly above the Wupper River. The roads below largely mirror this path, forming a continuous linear network through the city. This alignment allows for efficient movement across long distances, as multiple transportation modes—cars, buses, and the suspended railway—operate along the same axis. However, because so much of the city’s infrastructure is concentrated in this narrow corridor, disruptions in one part of the system can ripple across the entire network, leading to delays and congestion along much of the route.</p>
+        <p>Linear street systems follow a dominant corridor, often shaped by geography such as valleys, coastlines, or rail alignments. They can move traffic efficiently along one axis and pair well with transit lines that run in the same direction, as seen in Wuppertal. The tradeoff is reduced redundancy: if a key segment is congested or blocked, detour options are limited. This pattern is best for elongated cities with strong corridor-based travel demand.</p>
         <br>
         <!-- Linear Visualization -->
         <div id="map-linear" class="map-container"></div>
+        <table class="road-summary-table">
+            <caption>Linear Pattern: Quick Pros and Cons</caption>
+            <thead>
+                <tr>
+                    <th>Pros</th>
+                    <th>Cons</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Efficient long-distance movement along a primary axis.</td>
+                    <td>Fewer reroute options when primary links are congested.</td>
+                </tr>
+                <tr>
+                    <td>Aligns well with corridor transit infrastructure.</td>
+                    <td>Localized disruptions can affect a large share of trips.</td>
+                </tr>
+                <tr>
+                    <td>Simple structure for corridor-focused urban growth.</td>
+                    <td>Can create bottlenecks at feeder-road junctions.</td>
+                </tr>
+            </tbody>
+        </table>
         <br>
+        </section>
 
+        <section class="road-block" data-road-type="curvilinear">
         <h2>4. Curvilinear/Suburban Pattern</h2>
-        <p>Curvilinear (or suburban) street patterns are an iconic component of American middle-class suburbia, with an emphasis on winding roads and cul-de-sacs, to improve privacy and offer a countryside-esque living aesthetic. They are easily recognizable by the use of roads that "branch out" to produce sprawling suburban areas that are somewhat isolated from the surrounding area. Curvilinear street designs are often found in post-war suburbs in the U.S. and Canada, such as Fair Lawn, New Jersey.</p>
-        <p>Neighborhoods that follow a curvilinear design are desirable for their reduced traffic (and corresponding traffic volume) thanks to the lack of thoroughfares, improved privacy, and organic aesthetic. The sprawling design also can make it easier for guests to find parking in these neighborhoods.</p>
-        <p>However, suburban layouts come with their own downsides. While they are walkable within the neighborhood, they often are designed in a way that makes it difficult to access the surrounding city without a personal car. Public transportation also tends to be less efficient in these areas, which can make them notably isolated from local shops and services. This also tends to create a dependency on driving over walking and biking. </p>
-        <p>Fair Lawn, New Jersey is a classic example of a curvilinear street design. It is notable for its adherence to a hierarchy of arterial roads (with high traffic density), collector roads (which connect residential streets to arterial roads) and residential streets (designed just for local neighborhood traffic). From the visualization below, we can clearly see that there are generally extremely low travel times within neighborhoods, but notable traffic hotspots on the collector and primary arterial roads. Therefore, we can see that curvilinear street designs can make for peaceful, low-traffic density living  environments, but result in challenging traffic conditions the farther you get from strictly local suburban streets.</p>
+        <p>Curvilinear suburban layouts use winding local roads and branching neighborhood structures to reduce through-traffic in residential areas. They often improve privacy, neighborhood calm, and local safety by limiting direct cut-through routes. In the Fair Lawn example, internal streets are generally low-stress, while collectors and arterials absorb heavier congestion. These networks are useful for residential comfort, but they typically increase car dependency and reduce regional connectivity.</p>
         <br>
-       
-        <p>Curvilinear (or suburban) street patterns are an iconic component of American middle-class suburbia, with an emphasis on winding roads and cul-de-sacs, to improve privacy and offer a countryside-esque living aesthetic. They are easily recognizable by the use of roads that "branch out" to produce sprawling suburban areas that are somewhat isolated from the surrounding area. Curvilinear street designs are often found in post-war suburbs in the U.S. and Canada, such as Fair Lawn, New Jersey.</p>
-        <p>Neighborhoods that follow a curvilinear design are desirable for their reduced traffic (and corresponding traffic volume) thanks to the lack of thoroughfares, improved privacy, and organic aesthetic. The sprawling design also can make it easier for guests to find parking in these neighborhoods.</p>
-        <p>However, suburban layouts come with their own downsides. While they are walkable within the neighborhood, they often are designed in a way that makes it difficult to access the surrounding city without a personal car. Public transportation also tends to be less efficient in these areas, which can make them notably isolated from local shops and services. This also tends to create a dependency on driving over walking and biking. </p>
-        <p>Fair Lawn, New Jersey is a classic example of a curvilinear street design. It is notable for its adherence to a hierarchy of arterial roads (with high traffic density), collector roads (which connect residential streets to arterial roads) and residential streets (designed just for local neighborhood traffic). From the visualization below, we can clearly see that there are generally extremely low travel times within neighborhoods, but notable traffic hotspots on the collector and primary arterial roads. Therefore, we can see that curvilinear street designs can make for peaceful, low-traffic density living  environments, but result in challenging traffic conditions the farther you get from strictly local suburban streets.</p>
          <!-- Curvilinear/Suburban Visualization -->
         <div id="map-curvilinear" class="map-container"></div>
+        <table class="road-summary-table">
+            <caption>Curvilinear/Suburban Pattern: Quick Pros and Cons</caption>
+            <thead>
+                <tr>
+                    <th>Pros</th>
+                    <th>Cons</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Low through-traffic improves neighborhood quiet and safety.</td>
+                    <td>Limited connectivity can increase trip distance and delay.</td>
+                </tr>
+                <tr>
+                    <td>Residential streets feel private and less congested.</td>
+                    <td>Higher reliance on collector and arterial roads.</td>
+                </tr>
+                <tr>
+                    <td>Well suited for low-density suburban living goals.</td>
+                    <td>Transit and non-car access are often less efficient.</td>
+                </tr>
+            </tbody>
+        </table>
         <br>
+        </section>
 
+        <section class="road-block" data-road-type="culdesac">
         <h2>5. Cul-de-Sac Network Pattern</h2>
+        <p>Cul-de-sac networks rely on dead-end residential streets that feed into a smaller set of collector roads. This design minimizes non-local traffic inside neighborhoods and creates quieter local environments. In places like Carderock Springs, most congestion shifts outward to collectors and arterial access points. Cul-de-sac systems are useful for residential privacy and traffic calming, but they can reduce overall network resilience and routing flexibility.</p>
+        <p><strong>Location:</strong> Carderock Springs, MD</p>
         <br>
         <!-- Cul-de-Sac Network Visualization -->
-        
-        <p>Cul‑de‑sacs are dead‑end streets branching off collector roads. Think of American suburbs and gated communities. They are designed to reduce through traffic and create quiet, low‑traffic residential areas. However, they can lead to increased traffic congestion on collector roads, as all vehicles must enter and exit through a limited number of access points. This can create bottlenecks during peak hours and limit alternative routes for drivers.</p>
-            Location Name: Carderock Springs, MD </p>
         <div id="map-culdesac" class="map-container"></div>
+        <table class="road-summary-table">
+            <caption>Cul-de-Sac Network Pattern: Quick Pros and Cons</caption>
+            <thead>
+                <tr>
+                    <th>Pros</th>
+                    <th>Cons</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Very low through-traffic on local residential streets.</td>
+                    <td>Few entry/exit points create collector-road bottlenecks.</td>
+                </tr>
+                <tr>
+                    <td>Supports traffic calming and neighborhood privacy.</td>
+                    <td>Poor network redundancy during incidents or closures.</td>
+                </tr>
+                <tr>
+                    <td>Good fit for quiet, low-speed residential design.</td>
+                    <td>Longer emergency, transit, and cross-neighborhood routing.</td>
+                </tr>
+            </tbody>
+        </table>
         <br>
+        </section>
 
         <h2>References</h2>
         <p>1. Insert reference here</p>
@@ -137,6 +219,25 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <!-- Load Leaflet.js-->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        const roadTypeSelect = document.getElementById("road-type-select");
+        const roadSections = Array.from(document.querySelectorAll(".road-block"));
+
+        function updateRoadTypeVisibility(selectedRoadType) {
+            roadSections.forEach((section) => {
+                const sectionRoadType = section.dataset.roadType;
+                const isVisible = selectedRoadType === "all" || sectionRoadType === selectedRoadType;
+                section.classList.toggle("is-hidden", !isVisible);
+            });
+            window.dispatchEvent(new Event("resize"));
+        }
+
+        roadTypeSelect.addEventListener("change", (event) => {
+            updateRoadTypeVisibility(event.target.value);
+        });
+
+        updateRoadTypeVisibility(roadTypeSelect.value);
+    </script>
     <!-- Load the grid visualization -->
     <script type="module" src="js/grid.js"></script>
     <!-- Load the radial visualization -->

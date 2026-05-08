@@ -17,6 +17,62 @@ body {
   font-family: Arial, sans-serif;
 }
 
+.road-filter {
+  margin: 1.5rem 0 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.road-filter label {
+  font-family: Inter;
+  font-weight: 500;
+  text-indent: 0;
+}
+
+.road-filter select {
+  border: 1px solid #cfd4da;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: Inter;
+  background: #fff;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.road-summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  font-family: Inter, Arial, sans-serif;
+  table-layout: fixed;
+}
+
+.road-summary-table caption {
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-family: 'Source Serif 4';
+}
+
+.road-summary-table th,
+.road-summary-table td {
+  border: 1px solid #d9dee5;
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+  text-indent: 0;
+}
+
+.road-summary-table th {
+  background-color: #f5f7fa;
+  font-weight: 600;
+}
+
 /* Sticky section headers: as you scroll, the next header replaces the previous */
 .container > h2 {
   position: sticky;
