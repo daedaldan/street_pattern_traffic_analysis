@@ -172,7 +172,7 @@ export function createVisualization({ containerId, data, title }) {
     // Creating the Legend
     // ==========================================
     // Calculate the minimum and maximum travel times in minutes.
-    minTime = minTime / 60;
+    minTime = 1;
     // Calculate the maximum travel time in minutes.
     maxTime = maxTime / 60;
     // Calculate the midpoint travel time in minutes.
