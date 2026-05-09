@@ -101,6 +101,10 @@ p {
   font-family: Inter;
 }
 
+ul, li {
+  font-family: Inter;
+}
+
 /* Title */
 .map-title {
   background: white;
