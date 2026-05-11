@@ -48,6 +48,16 @@
             <li><strong>Travel Time ⏱️:</strong> The size of the circles on the map represents travel time, with larger circles showing longer travel times.</li>
         </ul>
 
+        <!-- Traffic Cards -->
+        <h2>Traffic Pattern Rankings</h2>
+        <p>
+        These summary cards compare each street pattern using weighted traffic statistics from the TomTom data.
+        Average speed is normalized by each road segment’s speed limit, travel time is weighted by the number of sampled cars,
+        and car density estimates sampled vehicles per square mile.
+        </p>
+
+        <div id="traffic-summary-cards" class="traffic-summary-cards"></div>
+
         <!-- Grid -->
         <h2>1. Grid Pattern</h2>
         <p>The grid layout, where streets intersect at right angles, is the most common street pattern and is often
@@ -143,6 +153,8 @@
         <h2>References</h2>
         <p>1. Insert reference here</p>
     </div>
+    <!-- Load trafficCards.js -->
+    <script type="module" src="js/trafficCards.js"></script>
     <!-- Load D3.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <!-- Load Leaflet.js-->
