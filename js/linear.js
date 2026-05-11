@@ -1,7 +1,7 @@
 // Import the function to create the visualization.
 import { createVisualization } from './visualization.js';
 // Import the JSON file with the data for the grid visualization..
-import data from '../data/linear/jobs_9138108_results_Wuppertal.json' with { type: 'json' };
+import data from '../data/linear/jobs_9177115_results_Wuppertal-2.json' with { type: 'json' };
 
 // Create the visualization once the DOM is loaded.
 document.addEventListener("DOMContentLoaded", () => {
