@@ -52,13 +52,6 @@ body {
   table-layout: fixed;
 }
 
-.road-summary-table caption {
-  text-align: left;
-  font-weight: 600;
-  margin-bottom: 8px;
-  font-family: 'Source Serif 4';
-}
-
 .road-summary-table th,
 .road-summary-table td {
   border: 1px solid #d9dee5;
