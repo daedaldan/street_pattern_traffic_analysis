@@ -1,5 +1,9 @@
 * {
   box-sizing: border-box;
+  font-family: 'Inter', Arial, sans-serif;
+  max-width: 60vw;
+  margin: 0px auto;
+  line-height: 1.8;
 }
 
 body {
