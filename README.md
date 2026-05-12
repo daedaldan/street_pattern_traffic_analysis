@@ -18,7 +18,6 @@ In each of the visualizations below, we show how a specific street pattern influ
 * Radial Pattern
 * Linear Pattern
 * Curvilinear/Suburban Pattern
-* Cul-de-Sac Network Pattern
 
 ## References
 TBA
