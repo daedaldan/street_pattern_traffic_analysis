@@ -6,156 +6,423 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>From Gridlock to Insight</title>
     <link rel="stylesheet" href="css/styles.css">
+
     <!-- Load fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <!-- Load Leatlet CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Source+Serif+4:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Load Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 
 <body>
     <div class="container">
-        <!-- Heading -->
         <h1>From Gridlock to Insight: A Visual Approach to the Urban Traffic Crisis</h1>
         <h3>Carolyn Lee, Lasya Muthyam, Daniel Wang, Gavin Crisologo, Nathan James</h3>
-        <!-- Introduction -->
+
         <h2>Introduction</h2>
-        <p>Traffic congestion is a significant problem that is associated with longer travel times, more traffic
-            accidents, and increased air pollution. These impacts can cause further issues, such as higher costs of
-            goods from increased shipping times, people missing important travel connections or medical appointments,
-            and higher rates of asthma and respiratory disease.</p>
+        <p>Traffic congestion is associated with longer travel times, more traffic accidents, and increased air pollution. These impacts can also create downstream issues, including higher shipping costs, missed appointments or travel connections, and negative public health effects.</p>
 
-        <p>However, designing better city network hierarchies and street layouts can alleviate urban congestion by
-            improving traffic flow. We want to visualize how different street patterns influence traffic density by
-            creating interactive visualizations that allow the viewer to better understand how urban planning can
-            improve traffic congestion and density.</p>
+        <p>Street layout plays a major role in how traffic moves through a city. By comparing different road patterns, this project visualizes how urban design can either distribute congestion across a network or concentrate it into specific intersections and corridors.</p>
 
-        <p>All of our visualizations use data from the TomTom Traffic Stats API, which provides detailed statistics on
-            travel times, travel speeds, route accessibility, and congestion bottlenecks using anonymized data gathered
-            from millions of navigation devices. Because the dataset provides hourly records of street-level traffic
-            data from cities across the world, it is a significant source of data that enables us to provide a thorough
-            and detailed analysis on how street patterns influence traffic density in different geographical regions and
-            times of day.</p>
+        <p>Our visualizations use data from the TomTom Traffic Stats API, which provides street-level traffic information such as travel speeds, travel times, route accessibility, and congestion bottlenecks.</p>
 
-        <!-- Visualization Overview -->
-        <h2>Visualization Overview</h2>
-        <p>In each of the visualizations below, we show how a specific street pattern influences traffic density by visualizing the street layout, number of cars, vehicle speeds, and travel times.</p>
-        <ul>
-            <li><strong>Street Layout 🗺️:</strong> The underlying street layout is visualized to provide context for the traffic patterns on the map.</li>
-            <li><strong>Number of Cars 🚗:</strong> Each of the circles on the map represents one car driving on that particular road segment during the analyzed time period.</li>
-            <li><strong>Vehicle Speed 🏃:</strong> The colors of the circles represent the speed of each vehicle, with red indicating slow speeds and pure green representing the speed limit.</li>
-            <li><strong>Travel Time ⏱️:</strong> The size of the circles on the map represents travel time, with larger circles showing longer travel times.</li>
-        </ul>
+        <nav class="site-tabs" aria-label="View mode">
+            <button type="button" class="site-tab is-active" id="tab-btn-explore" data-tab="explore" aria-selected="true">Article &amp; maps</button>
+            <button type="button" class="site-tab" id="tab-btn-compare" data-tab="compare" aria-selected="false">Compare road types</button>
+        </nav>
 
-        <!-- Grid -->
-        <h2>1. Grid Pattern</h2>
-        <p>The grid layout, where streets intersect at right angles, is the most common street pattern and is often
-            found in cities with dense downtowns, such as Manhattan, Chicago, and San Francisco. Grid layouts provide a
-            variety of features that help reduce traffic congestion. For example, they help disperse traffic by
-            providing a variety of routes from one place to another. If traffic is congested in one area, it is easy for
-            drivers to find another route to the same destination that avoids the congested area.</p>
-        <p>Grid layouts also have high walkability and make it easier to implement cycling paths, so people are more
-            likely to walk and ride bikes, which also helps decrease traffic congestion. Traffic flow is predictable as
-            well, and it is easy to provide directions in terms of cardinal directions.</p>
-        <p>Nevertheless, there are distinct downsides of grid layouts compared to other street patterns. It can be easy
-            for traffic congestion to occur at intersections, since frequent intersections at every block increase the
-            number of stop signs or traffic signals, which decreases overall travel speeds. Furthermore, grid layouts do
-            not adapt well to natural terrain, such as rivers and hills.</p>
-        <p>An archetypical example of the grid layout is Midtown Manhattan. We have visualized the traffic patterns in
-            Midtown Manhattan from W 40th St to W 59th St and 5th Ave to 8th Ave below. The abundance of traffic signals
-            at every block significantly reduces overall vehicle speeds by forcing cars to frequently slow down and
-            stop, as represented by the plethora of red dots across the map. However, the presence of streets where
-            vehicles have faster speeds and shorter travel times, such as 8th Ave, 6th Ave, and Central Park South are
-            also represented by a larger number of smaller green dots at these locations. Through the grid layout, these
-            streets provide travelers with alternate routes to their destinations that avoid the more congested areas.
-            The use of numbered streets, which is commonly found in grid layouts, also makes navigation easier for
-            commuters.</p>
-        <br>
-        <!-- Grid Visualization -->
-        <div id="map-grid" class="map-container"></div>
-        <br>
+        <div id="explore-controls" class="explore-controls">
+            <div class="road-filter">
+                <label for="road-type-select">Choose a road type visualization:</label>
+                <select id="road-type-select">
+                    <option value="all">All road types</option>
+                    <option value="grid">Grid Pattern</option>
+                    <option value="radial">Radial Pattern</option>
+                    <option value="linear">Linear Pattern</option>
+                    <option value="curvilinear">Curvilinear/Suburban Pattern</option>
+                    <option value="culdesac">Cul-de-Sac Network Pattern</option>
+                </select>
+            </div>
+        </div>
 
-        <h2>2. Radial Pattern</h2>
-        <p>Radial street patterns are characterized by roads that extend outward from a central point, often forming a
-            spoke-like structure. These roads are typically connected by circular intersections or ring roads, creating
-            a system where traffic is directed toward key hubs. This type of layout is commonly found in cities that
-            emphasize centralized planning, such as Washington, D.C.</p>
-        <p>One of the defining features of radial street patterns is their ability to provide efficient access to
-            central locations. Major avenues often lead directly to important landmarks, business districts, or
-            government centers, reducing travel distance for commuters heading into the city. However, this same
-            structure can lead to significant congestion, as multiple high-capacity roads converge at a limited number
-            of intersections.</p>
-        <p>Radial layouts also influence how traffic moves throughout the city. Traffic tends to flow inward toward the
-            center during the morning and outward in the evening, creating predictable congestion patterns. While ring
-            roads can help redistribute traffic, bottlenecks frequently occur at central hubs and major intersections
-            where radial and connecting roads meet.</p>
-        <p>Dupont Circle is a good example of a radial street pattern within Washington, D.C as several major avenues,
-            including Massachusetts Avenue, Connecticut Avenue, and New Hampshire Avenue, converge at a central circular
-            intersection. This creates a highly connected but complex traffic environment. The radial design allows
-            vehicles to reach the city center efficiently from multiple directions. However, because these roads
-            intersect at a single point, Dupont Circle experiences significant congestion, particularly during peak
-            commuting hours. The circular intersection further complicates traffic flow, as vehicles must navigate
-            merging lanes and continuous movement patterns. Unlike grid layouts, which offer multiple alternate routes,
-            the radial structure limits flexibility. Drivers traveling across the city often must pass through or around
-            central hubs like Dupont Circle, increasing travel time and contributing to congestion buildup.
-        </p>
-        <br>
-        <!-- Radial Visualization -->
-        <div id="map-radial" class="map-container"></div>
-        <br>
+        <div id="compare-controls" class="compare-controls is-hidden" hidden>
+            <div class="compare-slots" role="group" aria-label="Patterns to compare">
+                <label class="compare-slot">Slot 1
+                    <select id="compare-slot-1" class="compare-slot-select">
+                        <option value="">— None —</option>
+                        <option value="grid" selected>Grid</option>
+                        <option value="radial">Radial</option>
+                        <option value="linear">Linear</option>
+                        <option value="curvilinear">Curvilinear / Suburban</option>
+                        <option value="culdesac">Cul-de-Sac</option>
+                    </select>
+                </label>
 
-        <h2>3. Linear Pattern</h2>
-        <p>Linear street patterns are defined by roads that run primarily in parallel lines, often following a natural corridor such as a river valley, railway, or mountainous terrain. Unlike radial or grid systems, linear layouts tend to stretch in one dominant direction, creating a long, narrow urban form. This type of structure is commonly found in cities where geography strongly influences development, such as Wuppertal.</p>
-        <p>One of the defining features of a linear road network is its efficiency along a single axis. Major roads act as primary arteries, allowing traffic to flow smoothly from one end of the city to the other. In Wuppertal, this pattern follows the Wupper River valley, where roads, rail lines, and development are concentrated in a tight corridor. This creates a highly accessible system for movement along the length of the city, often supported by strong public transportation infrastructure.</p>
-        <p>However, this same structure can limit flexibility. Because most roads run in parallel, there are fewer alternative routes when congestion occurs. If a primary road becomes blocked or overloaded, traffic has limited options for rerouting. This can lead to bottlenecks, especially at key intersections or where smaller connecting roads feed into the main corridor.</p>
-        <p>Linear layouts also shape traffic patterns in a unique way. Instead of converging toward a central hub, traffic flows tend to move back and forth along the same corridor. Peak congestion often occurs along the main route rather than at a single central point. This creates a more distributed, but still concentrated, form of traffic buildup—less chaotic than radial systems, but potentially just as slow during high-demand periods.</p>
-        <p>A well-known example of this structure in Wuppertal is the corridor beneath the Wuppertal Suspension Railway (Schwebebahn), which runs directly above the Wupper River. The roads below largely mirror this path, forming a continuous linear network through the city. This alignment allows for efficient movement across long distances, as multiple transportation modes—cars, buses, and the suspended railway—operate along the same axis. However, because so much of the city’s infrastructure is concentrated in this narrow corridor, disruptions in one part of the system can ripple across the entire network, leading to delays and congestion along much of the route.</p>
-        <br>
-        <!-- Linear Visualization -->
-        <div id="map-linear" class="map-container"></div>
-        <br>
+                <label class="compare-slot">Slot 2
+                    <select id="compare-slot-2" class="compare-slot-select">
+                        <option value="">— None —</option>
+                        <option value="grid">Grid</option>
+                        <option value="radial" selected>Radial</option>
+                        <option value="linear">Linear</option>
+                        <option value="curvilinear">Curvilinear / Suburban</option>
+                        <option value="culdesac">Cul-de-Sac</option>
+                    </select>
+                </label>
 
-        <h2>4. Curvilinear/Suburban Pattern</h2>
-        <p>Curvilinear (or suburban) street patterns are an iconic component of American middle-class suburbia, with an emphasis on winding roads and cul-de-sacs, to improve privacy and offer a countryside-esque living aesthetic. They are easily recognizable by the use of roads that "branch out" to produce sprawling suburban areas that are somewhat isolated from the surrounding area. Curvilinear street designs are often found in post-war suburbs in the U.S. and Canada, such as Fair Lawn, New Jersey.</p>
-        <p>Neighborhoods that follow a curvilinear design are desirable for their reduced traffic (and corresponding traffic volume) thanks to the lack of thoroughfares, improved privacy, and organic aesthetic. The sprawling design also can make it easier for guests to find parking in these neighborhoods.</p>
-        <p>However, suburban layouts come with their own downsides. While they are walkable within the neighborhood, they often are designed in a way that makes it difficult to access the surrounding city without a personal car. Public transportation also tends to be less efficient in these areas, which can make them notably isolated from local shops and services. This also tends to create a dependency on driving over walking and biking. </p>
-        <p>Fair Lawn, New Jersey is a classic example of a curvilinear street design. It is notable for its adherence to a hierarchy of arterial roads (with high traffic density), collector roads (which connect residential streets to arterial roads) and residential streets (designed just for local neighborhood traffic). From the visualization below, we can clearly see that there are generally extremely low travel times within neighborhoods, but notable traffic hotspots on the collector and primary arterial roads. Therefore, we can see that curvilinear street designs can make for peaceful, low-traffic density living  environments, but result in challenging traffic conditions the farther you get from strictly local suburban streets.</p>
-        <br>
-       
-        <p>Curvilinear (or suburban) street patterns are an iconic component of American middle-class suburbia, with an emphasis on winding roads and cul-de-sacs, to improve privacy and offer a countryside-esque living aesthetic. They are easily recognizable by the use of roads that "branch out" to produce sprawling suburban areas that are somewhat isolated from the surrounding area. Curvilinear street designs are often found in post-war suburbs in the U.S. and Canada, such as Fair Lawn, New Jersey.</p>
-        <p>Neighborhoods that follow a curvilinear design are desirable for their reduced traffic (and corresponding traffic volume) thanks to the lack of thoroughfares, improved privacy, and organic aesthetic. The sprawling design also can make it easier for guests to find parking in these neighborhoods.</p>
-        <p>However, suburban layouts come with their own downsides. While they are walkable within the neighborhood, they often are designed in a way that makes it difficult to access the surrounding city without a personal car. Public transportation also tends to be less efficient in these areas, which can make them notably isolated from local shops and services. This also tends to create a dependency on driving over walking and biking. </p>
-        <p>Fair Lawn, New Jersey is a classic example of a curvilinear street design. It is notable for its adherence to a hierarchy of arterial roads (with high traffic density), collector roads (which connect residential streets to arterial roads) and residential streets (designed just for local neighborhood traffic). From the visualization below, we can clearly see that there are generally extremely low travel times within neighborhoods, but notable traffic hotspots on the collector and primary arterial roads. Therefore, we can see that curvilinear street designs can make for peaceful, low-traffic density living  environments, but result in challenging traffic conditions the farther you get from strictly local suburban streets.</p>
-         <!-- Curvilinear/Suburban Visualization -->
-        <div id="map-curvilinear" class="map-container"></div>
-        <br>
+                <label class="compare-slot">Slot 3
+                    <select id="compare-slot-3" class="compare-slot-select">
+                        <option value="">— None —</option>
+                        <option value="grid">Grid</option>
+                        <option value="radial">Radial</option>
+                        <option value="linear" selected>Linear</option>
+                        <option value="curvilinear">Curvilinear / Suburban</option>
+                        <option value="culdesac">Cul-de-Sac</option>
+                    </select>
+                </label>
 
-        <h2>5. Cul-de-Sac Network Pattern</h2>
-        <br>
-        <!-- Cul-de-Sac Network Visualization -->
-        
-        <p>Cul‑de‑sacs are dead‑end streets branching off collector roads. Think of American suburbs and gated communities. They are designed to reduce through traffic and create quiet, low‑traffic residential areas. However, they can lead to increased traffic congestion on collector roads, as all vehicles must enter and exit through a limited number of access points. This can create bottlenecks during peak hours and limit alternative routes for drivers.</p>
-            Location: Carderock Springs, MD </p>
-        <div id="map-culdesac" class="map-container"></div>
-        <br>
+                <label class="compare-slot">Slot 4
+                    <select id="compare-slot-4" class="compare-slot-select">
+                        <option value="" selected>— None —</option>
+                        <option value="grid">Grid</option>
+                        <option value="radial">Radial</option>
+                        <option value="linear">Linear</option>
+                        <option value="curvilinear">Curvilinear / Suburban</option>
+                        <option value="culdesac">Cul-de-Sac</option>
+                    </select>
+                </label>
+            </div>
+
+            <p id="compare-warning" class="compare-warning is-hidden" role="status"></p>
+        </div>
+
+        <div id="road-sections-root">
+
+            <section class="road-block" data-road-type="grid">
+                <h2>Grid Pattern</h2>
+                <p>Grid street networks use perpendicular streets and frequent intersections, creating many route choices between origins and destinations. They are common in dense downtown areas because they support navigation, walkability, and multimodal travel.</p>
+
+                <div id="map-grid" class="map-container"></div>
+
+                <table class="road-summary-table">
+                    <thead>
+                        <tr>
+                            <th>Pros</th>
+                            <th>Cons</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Many alternate routes help distribute traffic.</td>
+                            <td>Frequent intersections can create stop-and-go delay.</td>
+                        </tr>
+                        <tr>
+                            <td>Easy navigation with predictable blocks and directions.</td>
+                            <td>Signal density can lower average corridor speeds.</td>
+                        </tr>
+                        <tr>
+                            <td>Supports walking, cycling, and transit access well.</td>
+                            <td>Less adaptable to irregular terrain like hills or rivers.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="road-block" data-road-type="radial">
+                <h2>Radial Pattern</h2>
+                <p>Radial networks organize major roads like spokes leading to central hubs, often linked by circles or ring roads. This design gives fast direct access to downtown cores and major institutions, but it can also create recurring bottlenecks at the hub.</p>
+
+                <div id="map-radial" class="map-container"></div>
+
+                <table class="road-summary-table">
+                    <thead>
+                        <tr>
+                            <th>Pros</th>
+                            <th>Cons</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Direct routes to central districts reduce travel distance.</td>
+                            <td>Convergence at hubs creates frequent peak-hour bottlenecks.</td>
+                        </tr>
+                        <tr>
+                            <td>Clear hierarchy of major corridors and connectors.</td>
+                            <td>Limited alternate routes for cross-town movement.</td>
+                        </tr>
+                        <tr>
+                            <td>Ring roads can help redistribute some inbound traffic.</td>
+                            <td>Complex merging and circulation at central circles.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="road-block" data-road-type="linear">
+                <h2>Linear Pattern</h2>
+                <p>Linear street systems follow a dominant corridor, often shaped by geography such as valleys, coastlines, or rail alignments. They can move traffic efficiently along one axis, but reduced redundancy makes congestion harder to avoid.</p>
+
+                <div id="map-linear" class="map-container"></div>
+
+                <table class="road-summary-table">
+                    <thead>
+                        <tr>
+                            <th>Pros</th>
+                            <th>Cons</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Efficient long-distance movement along a primary axis.</td>
+                            <td>Fewer reroute options when primary links are congested.</td>
+                        </tr>
+                        <tr>
+                            <td>Aligns well with corridor transit infrastructure.</td>
+                            <td>Localized disruptions can affect a large share of trips.</td>
+                        </tr>
+                        <tr>
+                            <td>Simple structure for corridor-focused urban growth.</td>
+                            <td>Can create bottlenecks at feeder-road junctions.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="road-block" data-road-type="curvilinear">
+                <h2>Curvilinear/Suburban Pattern</h2>
+                <p>Curvilinear suburban layouts use winding local roads and branching neighborhood structures to reduce through-traffic in residential areas. These networks improve neighborhood calm but often increase car dependency.</p>
+
+                <div id="map-curvilinear" class="map-container"></div>
+
+                <table class="road-summary-table">
+                    <thead>
+                        <tr>
+                            <th>Pros</th>
+                            <th>Cons</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Low through-traffic improves neighborhood quiet and safety.</td>
+                            <td>Limited connectivity can increase trip distance and delay.</td>
+                        </tr>
+                        <tr>
+                            <td>Residential streets feel private and less congested.</td>
+                            <td>Higher reliance on collector and arterial roads.</td>
+                        </tr>
+                        <tr>
+                            <td>Well suited for low-density suburban living goals.</td>
+                            <td>Transit and non-car access are often less efficient.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="road-block" data-road-type="culdesac">
+                <h2>Cul-de-Sac Network Pattern</h2>
+                <p>Cul-de-sac networks rely on dead-end residential streets that feed into a smaller set of collector roads. They create quieter local environments, but they reduce overall network flexibility and resilience.</p>
+
+                <div id="map-culdesac" class="map-container"></div>
+
+                <table class="road-summary-table">
+                    <thead>
+                        <tr>
+                            <th>Pros</th>
+                            <th>Cons</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Very low through-traffic on local residential streets.</td>
+                            <td>Few entry/exit points create collector-road bottlenecks.</td>
+                        </tr>
+                        <tr>
+                            <td>Supports traffic calming and neighborhood privacy.</td>
+                            <td>Poor network redundancy during incidents or closures.</td>
+                        </tr>
+                        <tr>
+                            <td>Good fit for quiet, low-speed residential design.</td>
+                            <td>Longer emergency, transit, and cross-neighborhood routing.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </div>
 
         <h2>References</h2>
-        <p>1. Insert reference here</p>
+        <p>Insert references here.</p>
     </div>
+
     <!-- Load D3.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <!-- Load Leaflet.js-->
+
+    <!-- Load Leaflet.js -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <!-- Load the grid visualization -->
+
+    <script>
+        const containerEl = document.querySelector(".container");
+        const roadTypeSelect = document.getElementById("road-type-select");
+        const roadSectionsRoot = document.getElementById("road-sections-root");
+        const roadSections = Array.from(document.querySelectorAll(".road-block"));
+        const exploreControls = document.getElementById("explore-controls");
+        const compareControls = document.getElementById("compare-controls");
+        const compareWarning = document.getElementById("compare-warning");
+        const tabExploreBtn = document.getElementById("tab-btn-explore");
+        const tabCompareBtn = document.getElementById("tab-btn-compare");
+
+        const compareSlotSelects = [
+            document.getElementById("compare-slot-1"),
+            document.getElementById("compare-slot-2"),
+            document.getElementById("compare-slot-3"),
+            document.getElementById("compare-slot-4"),
+        ];
+
+        let activeTab = "explore";
+
+        function refreshMaps() {
+            window.dispatchEvent(new Event("resize"));
+            requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
+            setTimeout(() => window.dispatchEvent(new Event("resize")), 150);
+        }
+
+        function updateExploreVisibility() {
+            const selectedRoadType = roadTypeSelect.value;
+
+            roadSections.forEach((section) => {
+                const sectionRoadType = section.dataset.roadType;
+                const isVisible = selectedRoadType === "all" || sectionRoadType === selectedRoadType;
+
+                section.classList.toggle("is-hidden", !isVisible);
+                section.style.order = "";
+            });
+
+            roadSectionsRoot.classList.remove("mode-compare");
+            roadSectionsRoot.classList.remove("compare-cols-2", "compare-cols-3", "compare-cols-4");
+
+            refreshMaps();
+        }
+
+        function orderedUniqueTypesFromSlots() {
+            const ordered = [];
+            const seen = new Set();
+
+            compareSlotSelects.forEach((sel) => {
+                const value = sel.value;
+
+                if (value && !seen.has(value)) {
+                    seen.add(value);
+                    ordered.push(value);
+                }
+            });
+
+            return ordered;
+        }
+
+        function updateCompareVisibility() {
+            const types = orderedUniqueTypesFromSlots();
+
+            compareWarning.classList.add("is-hidden");
+            compareWarning.textContent = "";
+
+            if (types.length < 2) {
+                compareWarning.classList.remove("is-hidden");
+                compareWarning.textContent =
+                    types.length === 0
+                        ? "Choose at least two patterns."
+                        : "Choose at least one more pattern to compare.";
+
+                roadSections.forEach((section) => {
+                    section.classList.add("is-hidden");
+                    section.style.order = "";
+                });
+
+                refreshMaps();
+                return;
+            }
+
+            roadSectionsRoot.classList.add("mode-compare");
+            roadSectionsRoot.classList.remove("compare-cols-2", "compare-cols-3", "compare-cols-4");
+
+            if (types.length === 2) {
+                roadSectionsRoot.classList.add("compare-cols-2");
+            } else if (types.length === 3) {
+                roadSectionsRoot.classList.add("compare-cols-3");
+            } else {
+                roadSectionsRoot.classList.add("compare-cols-4");
+            }
+
+            types.forEach((type, index) => {
+                const section = roadSections.find((s) => s.dataset.roadType === type);
+
+                if (section) {
+                    section.classList.remove("is-hidden");
+                    section.style.order = String(index);
+                }
+            });
+
+            roadSections.forEach((section) => {
+                const type = section.dataset.roadType;
+
+                if (!types.includes(type)) {
+                    section.classList.add("is-hidden");
+                    section.style.order = "";
+                }
+            });
+
+            refreshMaps();
+        }
+
+        function setTab(tab) {
+            activeTab = tab;
+
+            const isCompare = tab === "compare";
+
+            tabExploreBtn.classList.toggle("is-active", !isCompare);
+            tabCompareBtn.classList.toggle("is-active", isCompare);
+
+            tabExploreBtn.setAttribute("aria-selected", String(!isCompare));
+            tabCompareBtn.setAttribute("aria-selected", String(isCompare));
+
+            exploreControls.classList.toggle("is-hidden", isCompare);
+            compareControls.classList.toggle("is-hidden", !isCompare);
+            compareControls.hidden = !isCompare;
+
+            containerEl.classList.toggle("view-compare", isCompare);
+
+            if (isCompare) {
+                updateCompareVisibility();
+            } else {
+                updateExploreVisibility();
+            }
+        }
+
+        tabExploreBtn.addEventListener("click", () => setTab("explore"));
+        tabCompareBtn.addEventListener("click", () => setTab("compare"));
+
+        roadTypeSelect.addEventListener("change", () => {
+            if (activeTab === "explore") {
+                updateExploreVisibility();
+            }
+        });
+
+        compareSlotSelects.forEach((select) => {
+            select.addEventListener("change", () => {
+                if (activeTab === "compare") {
+                    updateCompareVisibility();
+                }
+            });
+        });
+
+        updateExploreVisibility();
+    </script>
+
+    <!-- Load visualizations -->
     <script type="module" src="js/grid.js"></script>
-    <!-- Load the radial visualization -->
     <script type="module" src="js/radial.js"></script>
-    <!-- Load the linear visualization -->
     <script type="module" src="js/linear.js"></script>
-    <!-- Load the curvilinear visualization -->
     <script type="module" src="js/curvilinear.js"></script>
-    <!-- Load the cul-de-sac visualization -->
     <script type="module" src="js/culdesac.js"></script>
 </body>
 
