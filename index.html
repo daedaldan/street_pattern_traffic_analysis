@@ -27,15 +27,27 @@
                 <div class="intro-card">
                     <h2>Introduction</h2>
 
-                    <p>Traffic congestion is associated with longer travel times, more traffic accidents, and increased air pollution. These impacts can also create downstream issues, including higher shipping costs, missed appointments or travel connections, and negative public health effects.</p>
+                    <p>
+                        <strong>Problem:</strong>
+                        Traffic congestion is one of the most persistent problems facing modern cities. As urban populations grow and transportation demand increases, cities experience longer travel times, higher fuel consumption, increased air pollution, and reduced transportation reliability. However, congestion is not caused solely by the number of vehicles on the road — the structure of a city’s street network also strongly influences how traffic moves and where bottlenecks emerge.
+                    </p>
 
-                    <p>Street layout plays a major role in how traffic moves through a city. By comparing different road patterns, this project visualizes how urban design can either distribute congestion across a network or concentrate it into specific intersections and corridors.</p>
+                    <p>
+                        <strong>Research Question:</strong>
+                        How do different urban street-network designs influence traffic flow, travel efficiency, and congestion patterns?
+                    </p>
 
-                    <p>Our visualizations use data from the TomTom Traffic Stats API, which provides street-level traffic information such as travel speeds, travel times, route accessibility, and congestion bottlenecks.</p>
-                </div>
+                    <p>
+                        <strong>Approach:</strong>
+                        This project compares four major street-network patterns — grid, radial, linear, and curvilinear/suburban systems — using interactive traffic visualizations built from real-world roadway data. Each visualization encodes vehicle speed, travel time, and traffic intensity to show how congestion distributes differently across urban layouts.
+                    </p>
+
+                    <p>
+                        <strong>Dataset:</strong>
+                        Our visualizations use data from the TomTom Traffic Stats API, which provides street-level traffic information including average vehicle speeds, travel times, and roadway congestion statistics collected from anonymized navigation data.
+                    </p>
 
                 <!-- SCROLL BUTTON -->
-
             <a href="#main-content" class="scroll-cue">Explore the visualizations ↓</a>
         </div>
     </section>
@@ -69,6 +81,29 @@
             </section>
 
             <section id="conclusion-panel" class="conclusion-panel is-hidden" hidden>
+                <h2>Conclusion &amp; Next Steps</h2>
+
+                <div class="conclusion-card">
+                    <h3>Conclusion</h3>
+                    <p>
+                        This project shows that traffic congestion is not only a product of how many cars are on the road, but also how those cars are distributed by the structure of the street network. Grid systems provide many alternate paths, helping traffic spread across the network, but frequent intersections can reduce speeds. Radial systems create direct routes to central areas, but they are vulnerable to bottlenecks where major roads converge. Linear systems support efficient movement along a main corridor, but disruptions can affect the entire route. Curvilinear suburban systems reduce local neighborhood traffic, but often push congestion onto collector and arterial roads.
+                    </p>
+
+                    <p>
+                        Overall, the visualizations suggest that no single road pattern is universally “best.” Each design reflects a tradeoff between speed, accessibility, redundancy, safety, and neighborhood livability. By comparing these layouts visually, users can see how urban design decisions shape congestion patterns in ways that raw traffic numbers alone may not reveal.
+                    </p>
+                </div>
+
+                <div class="conclusion-card">
+                    <h3>Next Steps</h3>
+                    <ul>
+                        <li><strong>Add more cities:</strong> Compare multiple examples of each road type to avoid drawing conclusions from only one location per pattern.</li>
+                        <li><strong>Analyze more time periods:</strong> Include morning rush hour, evening rush hour, weekends, and late-night traffic to show how congestion changes throughout the day.</li>
+                        <li><strong>Improve traffic intensity metrics:</strong> Normalize sampled vehicles by total road-network length instead of geographic bounding-box area to reduce shape-based bias.</li>
+                        <li><strong>Add interaction filters:</strong> Let users toggle between speed, travel time, and traffic intensity layers directly on each map.</li>
+                        <li><strong>Connect findings to planning decisions:</strong> Use the results to discuss where cities might benefit from alternate routes, transit investment, signal optimization, or traffic calming.</li>
+                    </ul>
+                </div>
             </section>
             <div id="explore-controls" class="explore-controls">
                 <div class="road-filter">

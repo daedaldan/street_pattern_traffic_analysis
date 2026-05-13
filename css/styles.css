@@ -714,3 +714,40 @@ p {
 
     color: #334155;
 }
+
+
+/* Conclusion / Next Steps */
+.conclusion-panel {
+  margin-top: 2rem;
+}
+
+.conclusion-card {
+  background: #f8fbff;
+  border: 1px solid #dbe4f0;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.25rem 0;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.conclusion-card h3 {
+  color: #1f2937;
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.conclusion-card p {
+  text-indent: 0;
+  color: #334155;
+}
+
+.conclusion-card ul {
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+.conclusion-card li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
