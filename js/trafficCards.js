@@ -1,80 +1,4 @@
-import gridData from "../data/grid/jobs-9079201-results-Midtown_Manhattan.json" with { type: "json" };
-import radialData from "../data/radial/jobs-9125826-results-Dupont_Circle.json" with { type: "json" };
-import linearData from "../data/linear/jobs_9177115_results_Wuppertal-2.json" with { type: "json" };
-import curvilinearData from "../data/curvilinear/jobs_9140388_results_Fair_Lawn_NJ.json" with { type: "json" };
-// import culdesacData from "../data/culdesac/YOUR_FILE_NAME.json" with { type: "json" };
-
-const datasets = [
-  { pattern: "Grid", location: "Midtown Manhattan", data: gridData },
-  { pattern: "Radial", location: "Dupont Circle", data: radialData },
-  { pattern: "Linear", location: "Wuppertal", data: linearData },
-  { pattern: "Curvilinear", location: "Fair Lawn", data: curvilinearData },
-  // { pattern: "Cul-de-Sac", location: "Carderock Springs", data: culdesacData },
-];
-
-function milesBetween(lat1, lon1, lat2, lon2) {
-  const R = 3958.8;
-  const toRad = d => d * Math.PI / 180;
-
-  const dLat = toRad(lat2 - lat1);
-  const dLon = toRad(lon2 - lon1);
-
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(lat1)) *
-    Math.cos(toRad(lat2)) *
-    Math.sin(dLon / 2) ** 2;
-
-  return 2 * R * Math.asin(Math.sqrt(a));
-}
-
-function estimateAreaSqMi(segments) {
-  const points = segments.flatMap(seg =>
-    seg.shape.map(p => ({
-      lat: p.latitude,
-      lon: p.longitude
-    }))
-  );
-
-  const minLat = d3.min(points, d => d.lat);
-  const maxLat = d3.max(points, d => d.lat);
-  const minLon = d3.min(points, d => d.lon);
-  const maxLon = d3.max(points, d => d.lon);
-
-  const height = milesBetween(minLat, minLon, maxLat, minLon);
-  const width = milesBetween(minLat, minLon, minLat, maxLon);
-
-  return Math.max(width * height, 0.01);
-}
-
-function calculateMetrics(entry) {
-  const segments = entry.data.network.segmentResults;
-
-  let weightedSpeedRatio = 0;
-  let weightedTravelTime = 0;
-  let totalCars = 0;
-
-  segments.forEach(segment => {
-    const stats = segment.segmentTimeResults?.[0];
-    if (!stats || !segment.speedLimit) return;
-
-    const cars = stats.sampleSize || 0;
-    const speedRatio = stats.averageSpeed / segment.speedLimit;
-
-    weightedSpeedRatio += speedRatio * cars;
-    weightedTravelTime += stats.averageTravelTime * cars;
-    totalCars += cars;
-  });
-
-  const areaSqMi = estimateAreaSqMi(segments);
-
-  return {
-    ...entry,
-    avgSpeedNormalized: weightedSpeedRatio / totalCars,
-    avgTravelTimeMin: weightedTravelTime / totalCars / 60,
-    carsPerSqMi: totalCars / areaSqMi
-  };
-}
+import summaryStats from "../data/summary_stats.json" with { type: "json" };
 
 function rankBy(data, key, higherIsBetter = true) {
   return [...data]
@@ -84,33 +8,85 @@ function rankBy(data, key, higherIsBetter = true) {
     .map((d, i) => ({ ...d, rank: i + 1 }));
 }
 
+// function createCard(title, rankedData, key, formatter, subtitle) {
+//   const winner = rankedData[0];
+//   const runnersUp = rankedData.slice(1); // Removes the winner from the list
+
+//   return `
+//     <div class="traffic-card">
+//       <div class="traffic-card-header">
+//         <span class="traffic-card-rank">#1</span>
+//         <div>
+//           <h3>${title}</h3>
+//           <p>${subtitle}</p>
+//         </div>
+//       </div>
+
+//       <div class="traffic-card-winner">
+//         <strong>${winner.pattern}</strong>
+//         <span>${winner.location}</span>
+//         <div class="traffic-card-value">${formatter(winner[key])}</div>
+//       </div>
+
+//       <ol class="traffic-ranking" start="2">
+//         ${runnersUp.map(d => `
+//           <li>
+//             <span>${d.pattern}</span>
+//             <strong>${formatter(d[key])}</strong>
+//           </li>
+//         `).join("")}
+//       </ol>
+//     </div>
+//   `;
+// }
+
 function createCard(title, rankedData, key, formatter, subtitle) {
   const winner = rankedData[0];
+  const runnersUp = rankedData.slice(1);
 
   return `
-    <div class="traffic-card">
-      <div class="traffic-card-header">
-        <span class="traffic-card-rank">#1</span>
-        <div>
-          <h3>${title}</h3>
-          <p>${subtitle}</p>
+    <div class="traffic-card" style="flex: 1; min-width: 0; display: flex; flex-direction: column; height: 100%; box-sizing: border-box; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      
+      <div class="traffic-card-header" style="display: flex; flex-direction: column; gap: 6px; min-height: 85px; margin-bottom: 10px;">
+        <h3 style="margin: 0; font-size: 1.2em; line-height: 1.2;">${title}</h3>
+        <p style="margin: 0; font-size: 0.85em; color: #666; line-height: 1.3;">${subtitle}</p>
+      </div>
+
+      <div class="traffic-card-winner" style="display: flex; flex-direction: column; justify-content: center; gap: 8px; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #eee; min-height: 115px; margin-bottom: 20px;">
+        
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="background-color: #222; color: #fff; min-width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">
+            1
+          </div>
+          <div style="display: flex; flex-direction: column;">
+            <strong style="font-size: 1.1em;">${winner.pattern}</strong>
+            <span style="font-size: 0.9em; color: #555;">${winner.location}</span>
+          </div>
+        </div>
+        
+        <div class="traffic-card-value" style="font-size: 1.7em; font-weight: 900; color: #000; padding-left: 44px; line-height: 1;">
+          ${formatter(winner[key])}
         </div>
       </div>
 
-      <div class="traffic-card-winner">
-        <strong>${winner.pattern}</strong>
-        <span>${winner.location}</span>
-        <div class="traffic-card-value">${formatter(winner[key])}</div>
-      </div>
-
-      <ol class="traffic-ranking">
-        ${rankedData.map(d => `
-          <li>
-            <span>${d.pattern}</span>
-            <strong>${formatter(d[key])}</strong>
+      <ul class="traffic-ranking" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; flex-grow: 1;">
+        ${runnersUp.map((d, index) => `
+          <li style="display: flex; align-items: center; justify-content: space-between; font-size: 0.95em;">
+            
+            <div style="display: flex; align-items: center; gap: 10px; overflow: hidden;">
+              <div style="background-color: #e2e8f0; color: #475569; min-width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85em; font-weight: bold; flex-shrink: 0;">
+                ${index + 2}
+              </div>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333;">${d.pattern}</span>
+            </div>
+            
+            <strong style="white-space: nowrap; flex-shrink: 0; padding-left: 10px; color: #000;">
+              ${formatter(d[key])}
+            </strong>
           </li>
         `).join("")}
-      </ol>
+      </ul>
+      
     </div>
   `;
 }
@@ -119,11 +95,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("traffic-summary-cards");
   if (!container) return;
 
-  const metrics = datasets.map(calculateMetrics);
-
-  const speedRank = rankBy(metrics, "avgSpeedNormalized", true);
-  const timeRank = rankBy(metrics, "avgTravelTimeMin", false);
-  const densityRank = rankBy(metrics, "carsPerSqMi", false);
+  // Get pre-calculated statistics from the JSON directly and rank them
+  const speedRank = rankBy(summaryStats, "avgSpeedNormalized", true);
+  const timeRank = rankBy(summaryStats, "timePerMileMin", false);
+  const densityRank = rankBy(summaryStats, "carsPerSqMi", false);
 
   container.innerHTML = `
     ${createCard(
@@ -135,12 +110,12 @@ document.addEventListener("DOMContentLoaded", () => {
     )}
 
     ${createCard(
-      "Lowest Travel Time",
-      timeRank,
-      "avgTravelTimeMin",
-      d => `${d.toFixed(2)} min`,
-      "Weighted average travel time"
-    )}
+    "Fastest Time Per Mile",
+    timeRank,
+    "timePerMileMin",
+    d => `${d.toFixed(1)} min/mi`,
+    "Standardized average time to travel one mile"
+  )}
 
     ${createCard(
       "Lowest Car Density",
