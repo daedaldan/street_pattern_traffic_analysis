@@ -17,235 +17,271 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>From Gridlock to Insight: A Visual Approach to the Urban Traffic Crisis</h1>
-        <h3>Carolyn Lee, Lasya Muthyam, Daniel Wang, Gavin Crisologo, Nathan James</h3>
+    <!-- <div class="container"> -->
+    <section class="intro-hero explore-only">
 
-            <div class="explore-only">
-                <h2>Introduction</h2>
+        <div class="intro-hero-content">
+            <h1>From Gridlock to Insight: A Visual Approach to the Urban Traffic Crisis</h1>
+            <h3>Carolyn Lee, Lasya Muthyam, Daniel Wang, Gavin Crisologo, Nathan James</h3>
 
-                <p>Traffic congestion is associated with longer travel times, more traffic accidents, and increased air pollution. These impacts can also create downstream issues, including higher shipping costs, missed appointments or travel connections, and negative public health effects.</p>
+                <div class="intro-card">
+                    <h2>Introduction</h2>
 
-                <p>Street layout plays a major role in how traffic moves through a city. By comparing different road patterns, this project visualizes how urban design can either distribute congestion across a network or concentrate it into specific intersections and corridors.</p>
+                    <p>Traffic congestion is associated with longer travel times, more traffic accidents, and increased air pollution. These impacts can also create downstream issues, including higher shipping costs, missed appointments or travel connections, and negative public health effects.</p>
 
-                <p>Our visualizations use data from the TomTom Traffic Stats API, which provides street-level traffic information such as travel speeds, travel times, route accessibility, and congestion bottlenecks.</p>
+                    <p>Street layout plays a major role in how traffic moves through a city. By comparing different road patterns, this project visualizes how urban design can either distribute congestion across a network or concentrate it into specific intersections and corridors.</p>
+
+                    <p>Our visualizations use data from the TomTom Traffic Stats API, which provides street-level traffic information such as travel speeds, travel times, route accessibility, and congestion bottlenecks.</p>
+                </div>
+
+                <!-- SCROLL BUTTON -->
+
+            <a href="#main-content" class="scroll-cue">Explore the visualizations ↓</a>
+        </div>
+    </section>
+        <div id="main-content"></div>
+        <div class="container">
+                <!-- Site navigation -->
+                <nav class="site-tabs" aria-label="View mode">
+                    <button type="button" class="site-tab is-active" id="tab-btn-explore" data-tab="explore" aria-selected="true">Article &amp; maps</button>
+                    <button type="button" class="site-tab" id="tab-btn-compare" data-tab="compare" aria-selected="false">Compare road types</button>
+                    <button type="button" class="site-tab" id="tab-btn-statistics" data-tab="statistics" aria-selected="false">Statistics</button>
+                    <button type="button" class="site-tab" id="tab-btn-conclusion" data-tab="conclusion" aria-selected="false">Conclusion &amp; Next Steps</button>
+                </nav>
+
+                <!-- Visualization Overview -->
+                <div class="explore-only">
+                    <h2>Visualization Overview</h2>
+                    <p>In each of the visualizations below, we show how a specific street pattern influences traffic density by visualizing the street layout, number of cars, vehicle speeds, and travel times.</p>
+                    <ul>
+                        <li><strong>Street Layout 🗺️:</strong> The underlying street layout is visualized to provide context for the traffic patterns on the map.</li>
+                        <li><strong>Number of Cars 🚗:</strong> Each of the circles on the map represents one car driving on that particular road segment during the analyzed time period.</li>
+                        <li><strong>Vehicle Speed 🏃:</strong> The colors of the circles represent the speed of each vehicle, with red indicating slow speeds and pure green representing the speed limit.</li>
+                        <li><strong>Travel Time ⏱️:</strong> The size of the circles on the map represents travel time, with larger circles showing longer travel times.</li>
+                    </ul>
+                </div>
+            
+
+            <!-- Traffic Cards -->
+            <section id="statistics-panel" class="statistics-panel is-hidden" hidden>
+                <h2>Traffic Pattern Rankings</h2>
+                <div id="traffic-summary-cards" class="traffic-summary-cards"></div>
+            </section>
+
+            <section id="conclusion-panel" class="conclusion-panel is-hidden" hidden>
+            </section>
+            <div id="explore-controls" class="explore-controls">
+                <div class="road-filter">
+                    <label for="road-type-select">Choose a road type visualization:</label>
+                    <select id="road-type-select">
+                        <option value="all">All road types</option>
+                        <option value="grid">Grid Pattern</option>
+                        <option value="radial">Radial Pattern</option>
+                        <option value="linear">Linear Pattern</option>
+                        <option value="curvilinear">Curvilinear/Suburban Pattern</option>
+                    </select>
+                </div>
             </div>
 
-            <!-- Site navigation -->
-            <nav class="site-tabs" aria-label="View mode">
-                <button type="button" class="site-tab is-active" id="tab-btn-explore" data-tab="explore" aria-selected="true">Article &amp; maps</button>
-                <button type="button" class="site-tab" id="tab-btn-compare" data-tab="compare" aria-selected="false">Compare road types</button>
-                <button type="button" class="site-tab" id="tab-btn-statistics" data-tab="statistics" aria-selected="false">Statistics</button>
-                <button type="button" class="site-tab" id="tab-btn-conclusion" data-tab="conclusion" aria-selected="false">Conclusion &amp; Next Steps</button>
-            </nav>
+            <div id="compare-controls" class="compare-controls is-hidden" hidden>
+                <div class="compare-slots" role="group" aria-label="Patterns to compare">
+                    <label class="compare-slot">Slot 1
+                        <select id="compare-slot-1" class="compare-slot-select">
+                            <option value="">— None —</option>
+                            <option value="grid" selected>Grid</option>
+                            <option value="radial">Radial</option>
+                            <option value="linear">Linear</option>
+                            <option value="curvilinear">Curvilinear / Suburban</option>
+                        </select>
+                    </label>
 
-            <!-- Visualization Overview -->
-            <div class="explore-only">
-                <h2>Visualization Overview</h2>
-                <p>In each of the visualizations below, we show how a specific street pattern influences traffic density by visualizing the street layout, number of cars, vehicle speeds, and travel times.</p>
-                <ul>
-                    <li><strong>Street Layout 🗺️:</strong> The underlying street layout is visualized to provide context for the traffic patterns on the map.</li>
-                    <li><strong>Number of Cars 🚗:</strong> Each of the circles on the map represents one car driving on that particular road segment during the analyzed time period.</li>
-                    <li><strong>Vehicle Speed 🏃:</strong> The colors of the circles represent the speed of each vehicle, with red indicating slow speeds and pure green representing the speed limit.</li>
-                    <li><strong>Travel Time ⏱️:</strong> The size of the circles on the map represents travel time, with larger circles showing longer travel times.</li>
-                </ul>
+                    <label class="compare-slot">Slot 2
+                        <select id="compare-slot-2" class="compare-slot-select">
+                            <option value="">— None —</option>
+                            <option value="grid">Grid</option>
+                            <option value="radial" selected>Radial</option>
+                            <option value="linear">Linear</option>
+                            <option value="curvilinear">Curvilinear / Suburban</option>
+                        </select>
+                    </label>
+
+                    <label class="compare-slot">Slot 3
+                        <select id="compare-slot-3" class="compare-slot-select">
+                            <option value="">— None —</option>
+                            <option value="grid">Grid</option>
+                            <option value="radial">Radial</option>
+                            <option value="linear" selected>Linear</option>
+                            <option value="curvilinear">Curvilinear / Suburban</option>
+                        </select>
+                    </label>
+
+                    <label class="compare-slot">Slot 4
+                        <select id="compare-slot-4" class="compare-slot-select">
+                            <option value="" selected>— None —</option>
+                            <option value="grid">Grid</option>
+                            <option value="radial">Radial</option>
+                            <option value="linear">Linear</option>
+                            <option value="curvilinear">Curvilinear / Suburban</option>
+                        </select>
+                    </label>
+                </div>
+
+                <p id="compare-warning" class="compare-warning is-hidden" role="status"></p>
             </div>
-        
 
-        <!-- Traffic Cards -->
-        <section id="statistics-panel" class="statistics-panel is-hidden" hidden>
-            <h2>Traffic Pattern Rankings</h2>
-            <div id="traffic-summary-cards" class="traffic-summary-cards"></div>
-        </section>
-
-        <section id="conclusion-panel" class="conclusion-panel is-hidden" hidden>
-        </section>
-        <div id="explore-controls" class="explore-controls">
-            <div class="road-filter">
-                <label for="road-type-select">Choose a road type visualization:</label>
-                <select id="road-type-select">
-                    <option value="all">All road types</option>
-                    <option value="grid">Grid Pattern</option>
-                    <option value="radial">Radial Pattern</option>
-                    <option value="linear">Linear Pattern</option>
-                    <option value="curvilinear">Curvilinear/Suburban Pattern</option>
-                </select>
-            </div>
+            <div class="compare-meta-note is-hidden" id="compare-meta-note">
+            <p>
+                All traffic visualizations compare congestion patterns from
+                <strong>August 7th, 2024, 10 AM to 12 PM</strong>
+                using data from the
+                <strong>TomTom Traffic Stats API</strong>.
+            </p>
         </div>
 
-        <div id="compare-controls" class="compare-controls is-hidden" hidden>
-            <div class="compare-slots" role="group" aria-label="Patterns to compare">
-                <label class="compare-slot">Slot 1
-                    <select id="compare-slot-1" class="compare-slot-select">
-                        <option value="">— None —</option>
-                        <option value="grid" selected>Grid</option>
-                        <option value="radial">Radial</option>
-                        <option value="linear">Linear</option>
-                        <option value="curvilinear">Curvilinear / Suburban</option>
-                    </select>
-                </label>
+            <div id="road-sections-root">
 
-                <label class="compare-slot">Slot 2
-                    <select id="compare-slot-2" class="compare-slot-select">
-                        <option value="">— None —</option>
-                        <option value="grid">Grid</option>
-                        <option value="radial" selected>Radial</option>
-                        <option value="linear">Linear</option>
-                        <option value="curvilinear">Curvilinear / Suburban</option>
-                    </select>
-                </label>
+                <section class="road-block" data-road-type="grid">
+                    <h2>Grid Pattern</h2>
+                    <p>Grid street networks use perpendicular streets and frequent intersections, creating many route choices between origins and destinations. They are common in dense downtown areas because they support navigation, walkability, and multimodal travel.</p>
 
-                <label class="compare-slot">Slot 3
-                    <select id="compare-slot-3" class="compare-slot-select">
-                        <option value="">— None —</option>
-                        <option value="grid">Grid</option>
-                        <option value="radial">Radial</option>
-                        <option value="linear" selected>Linear</option>
-                        <option value="curvilinear">Curvilinear / Suburban</option>
-                    </select>
-                </label>
+                    <div id="map-grid" class="map-container"></div>
 
-                <label class="compare-slot">Slot 4
-                    <select id="compare-slot-4" class="compare-slot-select">
-                        <option value="" selected>— None —</option>
-                        <option value="grid">Grid</option>
-                        <option value="radial">Radial</option>
-                        <option value="linear">Linear</option>
-                        <option value="curvilinear">Curvilinear / Suburban</option>
-                    </select>
-                </label>
+                    <table class="road-summary-table">
+                        <thead>
+                            <tr>
+                                <th>Pros</th>
+                                <th>Cons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Many alternate routes help distribute traffic.</td>
+                                <td>Frequent intersections can create stop-and-go delay.</td>
+                            </tr>
+                            <tr>
+                                <td>Easy navigation with predictable blocks and directions.</td>
+                                <td>Signal density can lower average corridor speeds.</td>
+                            </tr>
+                            <tr>
+                                <td>Supports walking, cycling, and transit access well.</td>
+                                <td>Less adaptable to irregular terrain like hills or rivers.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="road-block" data-road-type="radial">
+                    <h2>Radial Pattern</h2>
+                    <p>Radial networks organize major roads like spokes leading to central hubs, often linked by circles or ring roads. This design gives fast direct access to downtown cores and major institutions, but it can also create recurring bottlenecks at the hub.</p>
+
+                    <div id="map-radial" class="map-container"></div>
+
+                    <table class="road-summary-table">
+                        <thead>
+                            <tr>
+                                <th>Pros</th>
+                                <th>Cons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Direct routes to central districts reduce travel distance.</td>
+                                <td>Convergence at hubs creates frequent peak-hour bottlenecks.</td>
+                            </tr>
+                            <tr>
+                                <td>Clear hierarchy of major corridors and connectors.</td>
+                                <td>Limited alternate routes for cross-town movement.</td>
+                            </tr>
+                            <tr>
+                                <td>Ring roads can help redistribute some inbound traffic.</td>
+                                <td>Complex merging and circulation at central circles.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="road-block" data-road-type="linear">
+                    <h2>Linear Pattern</h2>
+                    <p>Linear street systems follow a dominant corridor, often shaped by geography such as valleys, coastlines, or rail alignments. They can move traffic efficiently along one axis, but reduced redundancy makes congestion harder to avoid.</p>
+
+                    <div id="map-linear" class="map-container"></div>
+
+                    <table class="road-summary-table">
+                        <thead>
+                            <tr>
+                                <th>Pros</th>
+                                <th>Cons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Efficient long-distance movement along a primary axis.</td>
+                                <td>Fewer reroute options when primary links are congested.</td>
+                            </tr>
+                            <tr>
+                                <td>Aligns well with corridor transit infrastructure.</td>
+                                <td>Localized disruptions can affect a large share of trips.</td>
+                            </tr>
+                            <tr>
+                                <td>Simple structure for corridor-focused urban growth.</td>
+                                <td>Can create bottlenecks at feeder-road junctions.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <div class="urban-suburban-divider explore-only">
+                    <div class="divider-line"></div>
+                    <div class="divider-label">
+                        Transition to Suburban Street Networks
+                    </div>
+                    <p class="divider-description">
+                        Unlike dense urban systems that prioritize connectivity and
+                        centralized movement, suburban layouts prioritize residential
+                        separation, reduced through-traffic, and lower-density development.
+                    </p>
+                    <p></p>
+                    <div class="divider-line"></div>
+
+                </div>
+
+                <section class="road-block" data-road-type="curvilinear">
+                    <h2>Curvilinear/Suburban Pattern</h2>
+                    <p>Curvilinear suburban layouts use winding local roads and branching neighborhood structures to reduce through-traffic in residential areas. These networks improve neighborhood calm but often increase car dependency.</p>
+
+                    <div id="map-curvilinear" class="map-container"></div>
+
+                    <table class="road-summary-table">
+                        <thead>
+                            <tr>
+                                <th>Pros</th>
+                                <th>Cons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Low through-traffic improves neighborhood quiet and safety.</td>
+                                <td>Limited connectivity can increase trip distance and delay.</td>
+                            </tr>
+                            <tr>
+                                <td>Residential streets feel private and less congested.</td>
+                                <td>Higher reliance on collector and arterial roads.</td>
+                            </tr>
+                            <tr>
+                                <td>Well suited for low-density suburban living goals.</td>
+                                <td>Transit and non-car access are often less efficient.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            
             </div>
 
-            <p id="compare-warning" class="compare-warning is-hidden" role="status"></p>
+            <h2>References</h2>
+            <p>Insert references here.</p>
         </div>
-
-        <div id="road-sections-root">
-
-            <section class="road-block" data-road-type="grid">
-                <h2>Grid Pattern</h2>
-                <p>Grid street networks use perpendicular streets and frequent intersections, creating many route choices between origins and destinations. They are common in dense downtown areas because they support navigation, walkability, and multimodal travel.</p>
-
-                <div id="map-grid" class="map-container"></div>
-
-                <table class="road-summary-table">
-                    <thead>
-                        <tr>
-                            <th>Pros</th>
-                            <th>Cons</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Many alternate routes help distribute traffic.</td>
-                            <td>Frequent intersections can create stop-and-go delay.</td>
-                        </tr>
-                        <tr>
-                            <td>Easy navigation with predictable blocks and directions.</td>
-                            <td>Signal density can lower average corridor speeds.</td>
-                        </tr>
-                        <tr>
-                            <td>Supports walking, cycling, and transit access well.</td>
-                            <td>Less adaptable to irregular terrain like hills or rivers.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section class="road-block" data-road-type="radial">
-                <h2>Radial Pattern</h2>
-                <p>Radial networks organize major roads like spokes leading to central hubs, often linked by circles or ring roads. This design gives fast direct access to downtown cores and major institutions, but it can also create recurring bottlenecks at the hub.</p>
-
-                <div id="map-radial" class="map-container"></div>
-
-                <table class="road-summary-table">
-                    <thead>
-                        <tr>
-                            <th>Pros</th>
-                            <th>Cons</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Direct routes to central districts reduce travel distance.</td>
-                            <td>Convergence at hubs creates frequent peak-hour bottlenecks.</td>
-                        </tr>
-                        <tr>
-                            <td>Clear hierarchy of major corridors and connectors.</td>
-                            <td>Limited alternate routes for cross-town movement.</td>
-                        </tr>
-                        <tr>
-                            <td>Ring roads can help redistribute some inbound traffic.</td>
-                            <td>Complex merging and circulation at central circles.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section class="road-block" data-road-type="linear">
-                <h2>Linear Pattern</h2>
-                <p>Linear street systems follow a dominant corridor, often shaped by geography such as valleys, coastlines, or rail alignments. They can move traffic efficiently along one axis, but reduced redundancy makes congestion harder to avoid.</p>
-
-                <div id="map-linear" class="map-container"></div>
-
-                <table class="road-summary-table">
-                    <thead>
-                        <tr>
-                            <th>Pros</th>
-                            <th>Cons</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Efficient long-distance movement along a primary axis.</td>
-                            <td>Fewer reroute options when primary links are congested.</td>
-                        </tr>
-                        <tr>
-                            <td>Aligns well with corridor transit infrastructure.</td>
-                            <td>Localized disruptions can affect a large share of trips.</td>
-                        </tr>
-                        <tr>
-                            <td>Simple structure for corridor-focused urban growth.</td>
-                            <td>Can create bottlenecks at feeder-road junctions.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section class="road-block" data-road-type="curvilinear">
-                <h2>Curvilinear/Suburban Pattern</h2>
-                <p>Curvilinear suburban layouts use winding local roads and branching neighborhood structures to reduce through-traffic in residential areas. These networks improve neighborhood calm but often increase car dependency.</p>
-
-                <div id="map-curvilinear" class="map-container"></div>
-
-                <table class="road-summary-table">
-                    <thead>
-                        <tr>
-                            <th>Pros</th>
-                            <th>Cons</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Low through-traffic improves neighborhood quiet and safety.</td>
-                            <td>Limited connectivity can increase trip distance and delay.</td>
-                        </tr>
-                        <tr>
-                            <td>Residential streets feel private and less congested.</td>
-                            <td>Higher reliance on collector and arterial roads.</td>
-                        </tr>
-                        <tr>
-                            <td>Well suited for low-density suburban living goals.</td>
-                            <td>Transit and non-car access are often less efficient.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        
-        </div>
-
-        <h2>References</h2>
-        <p>Insert references here.</p>
     </div>
+
     <!-- Load trafficCards.js -->
     <script type="module" src="js/trafficCards.js"></script>
 
@@ -289,6 +325,8 @@
         }
 
         function updateExploreVisibility() {
+            roadSectionsRoot.classList.remove("is-hidden");
+
             const selectedRoadType = roadTypeSelect.value;
 
             roadSections.forEach((section) => {
@@ -375,9 +413,24 @@
             refreshMaps();
         }
 
+        // function hideRoadSections() {
+        //     roadSectionsRoot.classList.remove("mode-compare");
+        //     roadSectionsRoot.classList.remove("compare-cols-2", "compare-cols-3", "compare-cols-4");
+
+        //     roadSections.forEach((section) => {
+        //         section.classList.add("is-hidden");
+        //         section.style.order = "";
+        //     });
+        // }
         function hideRoadSections() {
-            roadSectionsRoot.classList.remove("mode-compare");
-            roadSectionsRoot.classList.remove("compare-cols-2", "compare-cols-3", "compare-cols-4");
+            roadSectionsRoot.classList.add("is-hidden");
+
+            roadSectionsRoot.classList.remove(
+                "mode-compare",
+                "compare-cols-2",
+                "compare-cols-3",
+                "compare-cols-4"
+            );
 
             roadSections.forEach((section) => {
                 section.classList.add("is-hidden");

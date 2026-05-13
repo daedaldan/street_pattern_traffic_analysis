@@ -8,6 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   createVisualization({
     containerId: "map-radial",
     data,
-    title: "Dupont Circle Traffic"
+    title: "Dupont Circle, Washington, D.C."
   });
 });

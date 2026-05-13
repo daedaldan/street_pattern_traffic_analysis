@@ -188,7 +188,7 @@ export function createVisualization({ containerId, data, title }) {
         <h4>Travel Time (min)</h4>
         <div class="legend-circles">
             <div class="legend-item">
-            <svg width="60" height="60">
+            <svg width="50" height="50">
                 <circle cx="30" cy="30" r="${(minTime * 60) / 25}" fill="grey" fill-opacity="0.25"/>
             </svg>
             <span>${minTime.toFixed(1)} min</span>

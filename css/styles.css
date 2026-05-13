@@ -148,7 +148,7 @@ body {
 }
 
 .container.view-compare {
-  max-width: min(1300px, 96vw);
+  max-width: min(1500px, 96vw);
 }
 
 h1,
@@ -317,33 +317,45 @@ p {
   font-weight: 600;
 }
 
+
 /* =========================
  Compare mode layout
  Only titles + visualizations
 ========================= */
 
 #road-sections-root.mode-compare {
-  display: grid;
-  gap: 1.25rem;
-  align-items: stretch;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+
+    align-items: start;
 }
 
 #road-sections-root.mode-compare.compare-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+/* 3 road types: 2 on top, third centered below */
 #road-sections-root.mode-compare.compare-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#road-sections-root.mode-compare.compare-cols-3 .road-block:nth-child(3) {
+    grid-column: 1 / 3;
+    width: 50%;
+    justify-self: center;
 }
 
 #road-sections-root.mode-compare.compare-cols-4 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+
+
 
 .container.view-compare .road-block {
   min-width: 0;
   margin: 0;
-  padding: 12px;
+  padding: 0.65rem;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 14px;
@@ -354,11 +366,11 @@ p {
 .container.view-compare .road-block p,
 .container.view-compare .road-block table,
 .container.view-compare .road-block br {
-  display: none !important;
+    display: none !important;
 }
 
 /* Keep only clean section title */
-.container.view-compare .road-block h2 {
+.container.view-compare .road-block > h2 {
   font-size: 1.15rem;
   text-align: center;
   margin: 0 0 10px 0;
@@ -367,13 +379,36 @@ p {
 }
 
 /* Make maps bigger and fill the card */
-.container.view-compare .map-container {
+/* .container.view-compare .map-container {
   height: 46vh;
   max-width: none;
   width: 100%;
   margin: 0;
   border-radius: 10px;
   overflow: hidden;
+} */
+.container.view-compare .map-container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    height: 58vh;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* 2 maps */
+#road-sections-root.mode-compare.compare-cols-2 .map-container {
+    height: 62vh;
+}
+
+/* 3 maps */
+#road-sections-root.mode-compare.compare-cols-3 .map-container {
+    height: 54vh;
+}
+
+/* 4 maps */
+#road-sections-root.mode-compare.compare-cols-4 .map-container {
+    height: 44vh;
 }
 
 /* Hide references in compare mode to avoid clutter */
@@ -563,21 +598,33 @@ p {
   font-weight: bold;
 }
 
-/* Mobile */
-@media (max-width: 900px) {
-  #road-sections-root.mode-compare.compare-cols-2,
-  #road-sections-root.mode-compare.compare-cols-3,
-  #road-sections-root.mode-compare.compare-cols-4 {
-      grid-template-columns: 1fr;
-  }
 
-  .container.view-compare .map-container {
-      height: 42vh;
-  }
-  .traffic-summary-cards {
-    grid-template-columns: 1fr;
-  }
+.container.view-compare .map-title h3,
+.container.view-compare .map-title h4 {
+    display: none;
 }
+
+/* Make compare title card compact */
+.container.view-compare .map-title {
+    display: block !important;
+
+    padding: 5px 8px;
+
+    max-width: 230px;
+
+    border-radius: 8px;
+}
+
+/* Location name */
+.container.view-compare .map-title h2 {
+    margin: 0;
+
+    font-size: 11px;
+
+    line-height: 1.15;
+}
+
+
 
 /* Hide introduction section in compare mode */
 .container.view-compare h2:first-of-type,
@@ -590,4 +637,80 @@ p {
 /* Ensures that visualization overview is hidden in compare mode */
 .container.view-compare .explore-only {
   display: none;
+}
+
+.container.view-compare .legend {
+    padding: 10px 12px;
+    border-radius: 12px;
+    max-width: 210px;
+}
+
+.container.view-compare .legend h4 {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.container.view-compare .legend-item {
+    transform: scale(0.78);
+}
+
+.container.view-compare .gradient-bar {
+    height: 8px;
+}
+
+.container.view-compare .gradient-labels {
+    font-size: 9px;
+}
+
+.container.view-compare .legend-circles {
+    gap: 2px;
+}
+
+
+/* Keep map location titles visible in compare mode */
+.container.view-compare .map-title {
+    display: block !important;
+    padding: 5px 8px;
+    max-width: 230px;
+    border-radius: 8px;
+}
+
+.container.view-compare .map-title h2,
+.container.view-compare .map-title #visualization-title {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #222 !important;
+    margin: 0 !important;
+    font-size: 11px !important;
+    line-height: 1.15 !important;
+    text-align: left !important;
+    white-space: normal;
+}
+
+/* Hide only the repeated date/source in compare */
+.container.view-compare .map-title h3,
+.container.view-compare .map-title h4 {
+    display: none !important;
+}
+.compare-meta-note {
+    margin: 0.5rem 0 1.5rem;
+    padding: 12px 16px;
+
+    border: 1px solid #dbe4f0;
+    border-radius: 10px;
+
+    background: #f8fbff;
+
+    font-family: Inter, Arial, sans-serif;
+}
+
+.compare-meta-note p {
+    margin: 0;
+    text-indent: 0;
+
+    font-size: 0.95rem;
+    line-height: 1.5;
+
+    color: #334155;
 }
