@@ -21,42 +21,45 @@
         <h1>From Gridlock to Insight: A Visual Approach to the Urban Traffic Crisis</h1>
         <h3>Carolyn Lee, Lasya Muthyam, Daniel Wang, Gavin Crisologo, Nathan James</h3>
 
-        <h2>Introduction</h2>
-        <p>Traffic congestion is associated with longer travel times, more traffic accidents, and increased air pollution. These impacts can also create downstream issues, including higher shipping costs, missed appointments or travel connections, and negative public health effects.</p>
+            <div class="explore-only">
+                <h2>Introduction</h2>
 
-        <p>Street layout plays a major role in how traffic moves through a city. By comparing different road patterns, this project visualizes how urban design can either distribute congestion across a network or concentrate it into specific intersections and corridors.</p>
+                <p>Traffic congestion is associated with longer travel times, more traffic accidents, and increased air pollution. These impacts can also create downstream issues, including higher shipping costs, missed appointments or travel connections, and negative public health effects.</p>
 
-        <p>Our visualizations use data from the TomTom Traffic Stats API, which provides street-level traffic information such as travel speeds, travel times, route accessibility, and congestion bottlenecks.</p>
+                <p>Street layout plays a major role in how traffic moves through a city. By comparing different road patterns, this project visualizes how urban design can either distribute congestion across a network or concentrate it into specific intersections and corridors.</p>
 
-        <!-- Site navigation -->
-        <nav class="site-tabs" aria-label="View mode">
-            <button type="button" class="site-tab is-active" id="tab-btn-explore" data-tab="explore" aria-selected="true">Article &amp; maps</button>
-            <button type="button" class="site-tab" id="tab-btn-compare" data-tab="compare" aria-selected="false">Compare road types</button>
-        </nav>
+                <p>Our visualizations use data from the TomTom Traffic Stats API, which provides street-level traffic information such as travel speeds, travel times, route accessibility, and congestion bottlenecks.</p>
+            </div>
 
-        <!-- Visualization Overview -->
-         <div class="explore-only">
-            <h2>Visualization Overview</h2>
-            <p>In each of the visualizations below, we show how a specific street pattern influences traffic density by visualizing the street layout, number of cars, vehicle speeds, and travel times.</p>
-            <ul>
-                <li><strong>Street Layout 🗺️:</strong> The underlying street layout is visualized to provide context for the traffic patterns on the map.</li>
-                <li><strong>Number of Cars 🚗:</strong> Each of the circles on the map represents one car driving on that particular road segment during the analyzed time period.</li>
-                <li><strong>Vehicle Speed 🏃:</strong> The colors of the circles represent the speed of each vehicle, with red indicating slow speeds and pure green representing the speed limit.</li>
-                <li><strong>Travel Time ⏱️:</strong> The size of the circles on the map represents travel time, with larger circles showing longer travel times.</li>
-            </ul>
-         </div>
+            <!-- Site navigation -->
+            <nav class="site-tabs" aria-label="View mode">
+                <button type="button" class="site-tab is-active" id="tab-btn-explore" data-tab="explore" aria-selected="true">Article &amp; maps</button>
+                <button type="button" class="site-tab" id="tab-btn-compare" data-tab="compare" aria-selected="false">Compare road types</button>
+                <button type="button" class="site-tab" id="tab-btn-statistics" data-tab="statistics" aria-selected="false">Statistics</button>
+                <button type="button" class="site-tab" id="tab-btn-conclusion" data-tab="conclusion" aria-selected="false">Conclusion &amp; Next Steps</button>
+            </nav>
+
+            <!-- Visualization Overview -->
+            <div class="explore-only">
+                <h2>Visualization Overview</h2>
+                <p>In each of the visualizations below, we show how a specific street pattern influences traffic density by visualizing the street layout, number of cars, vehicle speeds, and travel times.</p>
+                <ul>
+                    <li><strong>Street Layout 🗺️:</strong> The underlying street layout is visualized to provide context for the traffic patterns on the map.</li>
+                    <li><strong>Number of Cars 🚗:</strong> Each of the circles on the map represents one car driving on that particular road segment during the analyzed time period.</li>
+                    <li><strong>Vehicle Speed 🏃:</strong> The colors of the circles represent the speed of each vehicle, with red indicating slow speeds and pure green representing the speed limit.</li>
+                    <li><strong>Travel Time ⏱️:</strong> The size of the circles on the map represents travel time, with larger circles showing longer travel times.</li>
+                </ul>
+            </div>
         
 
         <!-- Traffic Cards -->
-        <h2>Traffic Pattern Rankings</h2>
-        <p>
-        These summary cards compare each street pattern using weighted traffic statistics from the TomTom data.
-        Average speed is normalized by each road segment’s speed limit, travel time is weighted by the number of sampled cars,
-        and car density estimates sampled vehicles per square mile.
-        </p>
+        <section id="statistics-panel" class="statistics-panel is-hidden" hidden>
+            <h2>Traffic Pattern Rankings</h2>
+            <div id="traffic-summary-cards" class="traffic-summary-cards"></div>
+        </section>
 
-        <div id="traffic-summary-cards" class="traffic-summary-cards"></div>
-
+        <section id="conclusion-panel" class="conclusion-panel is-hidden" hidden>
+        </section>
         <div id="explore-controls" class="explore-controls">
             <div class="road-filter">
                 <label for="road-type-select">Choose a road type visualization:</label>
@@ -260,8 +263,15 @@
         const exploreControls = document.getElementById("explore-controls");
         const compareControls = document.getElementById("compare-controls");
         const compareWarning = document.getElementById("compare-warning");
+        const statisticsPanel = document.getElementById("statistics-panel");
+        const conclusionPanel = document.getElementById("conclusion-panel");
+        
         const tabExploreBtn = document.getElementById("tab-btn-explore");
         const tabCompareBtn = document.getElementById("tab-btn-compare");
+        const tabStatisticsBtn = document.getElementById("tab-btn-statistics");
+        const tabConclusionBtn = document.getElementById("tab-btn-conclusion");
+
+        const exploreOnlyElements = Array.from(document.querySelectorAll(".explore-only"));
 
         const compareSlotSelects = [
             document.getElementById("compare-slot-1"),
@@ -365,32 +375,77 @@
             refreshMaps();
         }
 
+        function hideRoadSections() {
+            roadSectionsRoot.classList.remove("mode-compare");
+            roadSectionsRoot.classList.remove("compare-cols-2", "compare-cols-3", "compare-cols-4");
+
+            roadSections.forEach((section) => {
+                section.classList.add("is-hidden");
+                section.style.order = "";
+            });
+        }
+
         function setTab(tab) {
             activeTab = tab;
 
+            const isExplore = tab === "explore";
             const isCompare = tab === "compare";
+            const isStatistics = tab === "statistics";
+            const isConclusion = tab === "conclusion";
 
-            tabExploreBtn.classList.toggle("is-active", !isCompare);
+            tabExploreBtn.classList.toggle("is-active", isExplore);
             tabCompareBtn.classList.toggle("is-active", isCompare);
-
-            tabExploreBtn.setAttribute("aria-selected", String(!isCompare));
+            tabStatisticsBtn.classList.toggle("is-active", isStatistics);
+            tabConclusionBtn.classList.toggle("is-active", isConclusion);
+                    
+            tabExploreBtn.setAttribute("aria-selected", String(isExplore));
             tabCompareBtn.setAttribute("aria-selected", String(isCompare));
+            tabStatisticsBtn.setAttribute("aria-selected", String(isStatistics));
+            tabConclusionBtn.setAttribute("aria-selected", String(isConclusion));
 
-            exploreControls.classList.toggle("is-hidden", isCompare);
+            // exploreControls.classList.toggle("is-hidden", isCompare);
+            // compareControls.classList.toggle("is-hidden", !isCompare);
+            // compareControls.hidden = !isCompare;
+            exploreControls.classList.toggle("is-hidden", !isExplore);
             compareControls.classList.toggle("is-hidden", !isCompare);
+            statisticsPanel.classList.toggle("is-hidden", !isStatistics);
+            conclusionPanel.classList.toggle("is-hidden", !isConclusion);
+
+
             compareControls.hidden = !isCompare;
+            statisticsPanel.hidden = !isStatistics;
+            conclusionPanel.hidden = !isConclusion;
+
+            exploreOnlyElements.forEach((el) => {
+                el.classList.toggle("is-hidden", !isExplore);
+            });
 
             containerEl.classList.toggle("view-compare", isCompare);
+            containerEl.classList.toggle("view-statistics", isStatistics);
+            containerEl.classList.toggle("view-conclusion", isConclusion);
 
-            if (isCompare) {
+            if (isExplore) {
+                updateExploreVisibility();
+            } else if (isCompare) {
                 updateCompareVisibility();
             } else {
-                updateExploreVisibility();
+                hideRoadSections();
             }
         }
 
+            // containerEl.classList.toggle("view-compare", isCompare);
+
+        //     if (isCompare) {
+        //         updateCompareVisibility();
+        //     } else {
+        //         updateExploreVisibility();
+        //     }
+        // }
+
         tabExploreBtn.addEventListener("click", () => setTab("explore"));
         tabCompareBtn.addEventListener("click", () => setTab("compare"));
+        tabStatisticsBtn.addEventListener("click", () => setTab("statistics"));
+        tabConclusionBtn.addEventListener("click", () => setTab("conclusion"));
 
         roadTypeSelect.addEventListener("change", () => {
             if (activeTab === "explore") {

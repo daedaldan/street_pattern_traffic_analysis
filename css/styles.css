@@ -6,6 +6,134 @@
   line-height: 1.8;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+.intro-hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid #e5e7eb;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.intro-hero-content {
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto;
+    animation: introFadeUp 0.7s ease both;
+}
+
+.intro-hero h1 {
+    max-width: 950px;
+    margin-bottom: 0.75rem;
+}
+
+.intro-hero h3 {
+    max-width: 950px;
+    margin-bottom: 2rem;
+}
+
+.intro-card {
+    max-width: 850px;
+    margin-top: 2rem;
+    padding-left: 1.5rem;
+    border-left: 4px solid #2b6cb0;
+}
+
+.intro-card h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.intro-card p {
+    text-indent: 0;
+    max-width: 850px;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #333;
+}
+
+.scroll-cue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin: 3rem auto 0 auto;
+    padding: 0.9rem 1.4rem;
+    border-radius: 999px;
+    background: #2b6cb0;
+    color: white;
+    font-family: Inter, Arial, sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+    box-shadow:
+        0 8px 24px rgba(43, 108, 176, 0.2);
+}
+
+.scroll-cue:hover {
+    background: #1f4f85;
+    transform: translateY(-2px);
+    box-shadow:
+        0 12px 30px rgba(43, 108, 176, 0.28);
+}
+
+.hero-divider {
+    width: 100%;
+    height: 120px;
+
+    margin-top: 3rem;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,0),
+            rgba(226,232,240,0.7)
+        );
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black 35%,
+            transparent 100%
+        );
+}
+
+#main-content {
+    position: relative;
+    margin-top: -30px;
+
+    background: white;
+
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+
+    padding-top: 2rem;
+
+    box-shadow:
+        0 -10px 30px rgba(0,0,0,0.04);
+
+    z-index: 5;
+}
+
+@keyframes introFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 body {
   margin: 0;
   background-color: #ffffff;
