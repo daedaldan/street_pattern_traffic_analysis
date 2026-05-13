@@ -19,12 +19,5 @@
     "avgSpeedNormalized": 0.7111086447462474,
     "timePerMileMin": 2.8327100490998642,
     "carsPerSqMi": 25521.099108609433
-  },
-  {
-    "pattern": "Curvilinear",
-    "location": "Fair Lawn",
-    "avgSpeedNormalized": 0.9269504052921652,
-    "timePerMileMin": 1.4656128686951349,
-    "carsPerSqMi": 83161.59223520839
   }
 ]
