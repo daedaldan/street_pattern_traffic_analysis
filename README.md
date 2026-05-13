@@ -1,7 +1,7 @@
 # From Gridlock to Insight: A Visual Approach to the Urban Traffic Crisis
-Carolyn Lee, Lasya Muthyam, Daniel Wang, Gavin Crisologo, Nathan James
+Team Members: Carolyn Lee, Lasya Muthyam, Daniel Wang, Gavin Crisologo, Nathan James
 
-[https://github.com/daedaldan/street_pattern_traffic_analysis](https://github.com/daedaldan/street_pattern_traffic_analysis)
+Live Demo: [https://daedaldan.github.io/street_pattern_traffic_analysis/](https://daedaldan.github.io/street_pattern_traffic_analysis/)
 
 ## Introduction
 Traffic congestion is a significant problem that is associated with longer travel times, more traffic accidents, and increased air pollution. These impacts can cause further issues, such as higher costs of goods from increased shipping times, people missing important travel connections or medical appointments, and higher rates of asthma and respiratory disease.
