@@ -28,10 +28,34 @@
 
         <p>Our visualizations use data from the TomTom Traffic Stats API, which provides street-level traffic information such as travel speeds, travel times, route accessibility, and congestion bottlenecks.</p>
 
+        <!-- Site navigation -->
         <nav class="site-tabs" aria-label="View mode">
             <button type="button" class="site-tab is-active" id="tab-btn-explore" data-tab="explore" aria-selected="true">Article &amp; maps</button>
             <button type="button" class="site-tab" id="tab-btn-compare" data-tab="compare" aria-selected="false">Compare road types</button>
         </nav>
+
+        <!-- Visualization Overview -->
+         <div class="explore-only">
+            <h2>Visualization Overview</h2>
+            <p>In each of the visualizations below, we show how a specific street pattern influences traffic density by visualizing the street layout, number of cars, vehicle speeds, and travel times.</p>
+            <ul>
+                <li><strong>Street Layout 🗺️:</strong> The underlying street layout is visualized to provide context for the traffic patterns on the map.</li>
+                <li><strong>Number of Cars 🚗:</strong> Each of the circles on the map represents one car driving on that particular road segment during the analyzed time period.</li>
+                <li><strong>Vehicle Speed 🏃:</strong> The colors of the circles represent the speed of each vehicle, with red indicating slow speeds and pure green representing the speed limit.</li>
+                <li><strong>Travel Time ⏱️:</strong> The size of the circles on the map represents travel time, with larger circles showing longer travel times.</li>
+            </ul>
+         </div>
+        
+
+        <!-- Traffic Cards -->
+        <h2>Traffic Pattern Rankings</h2>
+        <p>
+        These summary cards compare each street pattern using weighted traffic statistics from the TomTom data.
+        Average speed is normalized by each road segment’s speed limit, travel time is weighted by the number of sampled cars,
+        and car density estimates sampled vehicles per square mile.
+        </p>
+
+        <div id="traffic-summary-cards" class="traffic-summary-cards"></div>
 
         <div id="explore-controls" class="explore-controls">
             <div class="road-filter">
@@ -42,7 +66,6 @@
                     <option value="radial">Radial Pattern</option>
                     <option value="linear">Linear Pattern</option>
                     <option value="curvilinear">Curvilinear/Suburban Pattern</option>
-                    <option value="culdesac">Cul-de-Sac Network Pattern</option>
                 </select>
             </div>
         </div>
@@ -56,7 +79,6 @@
                         <option value="radial">Radial</option>
                         <option value="linear">Linear</option>
                         <option value="curvilinear">Curvilinear / Suburban</option>
-                        <option value="culdesac">Cul-de-Sac</option>
                     </select>
                 </label>
 
@@ -67,7 +89,6 @@
                         <option value="radial" selected>Radial</option>
                         <option value="linear">Linear</option>
                         <option value="curvilinear">Curvilinear / Suburban</option>
-                        <option value="culdesac">Cul-de-Sac</option>
                     </select>
                 </label>
 
@@ -78,7 +99,6 @@
                         <option value="radial">Radial</option>
                         <option value="linear" selected>Linear</option>
                         <option value="curvilinear">Curvilinear / Suburban</option>
-                        <option value="culdesac">Cul-de-Sac</option>
                     </select>
                 </label>
 
@@ -89,7 +109,6 @@
                         <option value="radial">Radial</option>
                         <option value="linear">Linear</option>
                         <option value="curvilinear">Curvilinear / Suburban</option>
-                        <option value="culdesac">Cul-de-Sac</option>
                     </select>
                 </label>
             </div>
@@ -218,42 +237,14 @@
                     </tbody>
                 </table>
             </section>
-
-            <section class="road-block" data-road-type="culdesac">
-                <h2>Cul-de-Sac Network Pattern</h2>
-                <p>Cul-de-sac networks rely on dead-end residential streets that feed into a smaller set of collector roads. They create quieter local environments, but they reduce overall network flexibility and resilience.</p>
-
-                <div id="map-culdesac" class="map-container"></div>
-
-                <table class="road-summary-table">
-                    <thead>
-                        <tr>
-                            <th>Pros</th>
-                            <th>Cons</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Very low through-traffic on local residential streets.</td>
-                            <td>Few entry/exit points create collector-road bottlenecks.</td>
-                        </tr>
-                        <tr>
-                            <td>Supports traffic calming and neighborhood privacy.</td>
-                            <td>Poor network redundancy during incidents or closures.</td>
-                        </tr>
-                        <tr>
-                            <td>Good fit for quiet, low-speed residential design.</td>
-                            <td>Longer emergency, transit, and cross-neighborhood routing.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
+        
         </div>
 
         <h2>References</h2>
         <p>Insert references here.</p>
     </div>
+    <!-- Load trafficCards.js -->
+    <script type="module" src="js/trafficCards.js"></script>
 
     <!-- Load D3.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -425,5 +416,4 @@
     <script type="module" src="js/curvilinear.js"></script>
     <script type="module" src="js/culdesac.js"></script>
 </body>
-
 </html>

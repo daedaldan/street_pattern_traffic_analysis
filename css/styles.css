@@ -327,6 +327,94 @@ p {
   margin-top: 2px;
 }
 
+/*Traffic Cards CSS*/
+.traffic-summary-cards {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 28px auto 42px auto;
+}
+
+.traffic-card {
+  max-width: none;
+  background: #f8f8f8;
+  border: 1px solid #e4e4e4;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.traffic-card * {
+  max-width: none;
+  margin: 0;
+}
+
+.traffic-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.traffic-card-rank {
+  background: #111;
+  color: white;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.traffic-card h3 {
+  color: #111;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.traffic-card p {
+  text-indent: 0;
+  font-size: 0.8rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.traffic-card-winner {
+  margin-bottom: 16px;
+}
+
+.traffic-card-winner strong {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.traffic-card-winner span {
+  display: block;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.traffic-card-value {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-top: 6px;
+}
+
+.traffic-ranking {
+  padding-left: 18px;
+}
+
+.traffic-ranking li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.9rem;
+  border-top: 1px solid #ddd;
+  padding: 8px 0;
+}
+
 /* D3 axis styles if needed */
 .x-axis path,
 .y-axis path,
@@ -358,6 +446,9 @@ p {
   .container.view-compare .map-container {
       height: 42vh;
   }
+  .traffic-summary-cards {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Hide introduction section in compare mode */
@@ -366,4 +457,9 @@ p {
 .container.view-compare h2:first-of-type + p + p,
 .container.view-compare h2:first-of-type + p + p + p {
     display: none;
+}
+
+/* Ensures that visualization overview is hidden in compare mode */
+.container.view-compare .explore-only {
+  display: none;
 }
