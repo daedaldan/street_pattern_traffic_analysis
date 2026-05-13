@@ -1,5 +1,5 @@
-/* Reset default styles */
 * {
+  box-sizing: border-box;
   font-family: 'Inter', Arial, sans-serif;
   max-width: 60vw;
   margin: 0px auto;
@@ -7,104 +7,260 @@
 }
 
 body {
-  background-color: #FFFFFF;
-}
-
-/* Container styling for layout */
-.container {
-  max-width: 800px;
-  margin: 2rem auto;
-  font-family: Arial, sans-serif;
-}
-
-/* Sticky section headers: as you scroll, the next header replaces the previous */
-.container > h2 {
-  position: sticky;
-  top: 0;
-  /* Leaflet controls use high z-index; keep headings above them while scrolling */
-  z-index: 5000;
-  background: #FFFFFF;
   margin: 0;
-  padding: 12px 0 10px 0;
+  background-color: #ffffff;
+  color: #222;
+  font-family: Inter, Arial, sans-serif;
 }
 
-/* Leaflet map containers used in the HTML (map-grid, map-radial, etc.) */
-.map-container {
-  height: 50vh;
-  max-width: 800px;
+.container {
+  max-width: 850px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
-.x-axis path,
-.y-axis path,
-.x-axis line,
-.y-axis line {
-  stroke: #333;
-  shape-rendering: crispEdges;
-}
-
-.x-axis text,
-.y-axis text {
-  font-size: 12px;
-  font-family: Arial, sans-serif;
-}
-
-.axis-label {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-button {
-  padding: 8px 16px;
-  margin-right: 10px;
+.container.view-compare {
+  max-width: min(1300px, 96vw);
 }
 
 h1,
 h2 {
-  font-family: 'Source Serif 4';
+  font-family: "Source Serif 4", serif;
   font-weight: 500;
 }
 
 h1 {
-  font-size: 2.5em;
-  line-height: 1.3;
-  margin-bottom: 8px;
+  font-size: 2.5rem;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
 }
 
 h2 {
-  font-size: 1.75em;
+  font-size: 1.75rem;
   line-height: 1.2;
-}
-
-#visualization-title {
-  line-height: 1.1;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
 }
 
 h3 {
   color: gray;
+  font-family: Inter, Arial, sans-serif;
   font-style: italic;
   font-weight: 300;
   line-height: 1.5;
+  margin-top: 0;
 }
 
-h4 {
-  color: gray;
-  font-style: italic;
-  font-weight: 300;
-  font-size: 0.8em;
-}
-
-a,
 p {
-  text-indent: 30px;
+  font-family: Inter, Arial, sans-serif;
+  line-height: 1.65;
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
-/* Title */
+/* Hide elements */
+.is-hidden {
+  display: none !important;
+}
+
+/* Tabs */
+.site-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.site-tab {
+  font-family: Inter, Arial, sans-serif;
+  font-size: 0.95rem;
+  padding: 10px 18px;
+  border: 1px solid #cfd4da;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.site-tab:hover {
+  background: #f5f7fa;
+}
+
+.site-tab.is-active {
+  border-color: #2b6cb0;
+  background: #ebf4ff;
+  font-weight: 600;
+}
+
+/* Explore controls */
+.explore-controls {
+  margin: 1.25rem 0 2rem;
+}
+
+.road-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.road-filter label {
+  font-weight: 500;
+}
+
+.road-filter select,
+.compare-slot-select {
+  border: 1px solid #cfd4da;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: Inter, Arial, sans-serif;
+  background: #fff;
+}
+
+/* Compare controls */
+.compare-controls {
+  margin: 1rem 0 1.25rem;
+}
+
+.compare-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  align-items: flex-end;
+}
+
+.compare-slot {
+  font-family: Inter, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.compare-slot-select {
+  min-width: 11rem;
+}
+
+.compare-warning {
+  font-family: Inter, Arial, sans-serif;
+  font-size: 0.9rem;
+  color: #744210;
+  background: #fffbeb;
+  border: 1px solid #f6e05e;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin: 1rem 0;
+}
+
+/* Main road sections */
+.road-block {
+  margin-bottom: 2.5rem;
+}
+
+.map-container {
+  height: 50vh;
+  max-width: 850px;
+  width: 100%;
+  margin: 1rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Pros and cons tables */
+.road-summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-family: Inter, Arial, sans-serif;
+  table-layout: fixed;
+}
+
+.road-summary-table th,
+.road-summary-table td {
+  border: 1px solid #d9dee5;
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.road-summary-table th {
+  background-color: #f5f7fa;
+  font-weight: 600;
+}
+
+/* =========================
+ Compare mode layout
+ Only titles + visualizations
+========================= */
+
+#road-sections-root.mode-compare {
+  display: grid;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+#road-sections-root.mode-compare.compare-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#road-sections-root.mode-compare.compare-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+#road-sections-root.mode-compare.compare-cols-4 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.container.view-compare .road-block {
+  min-width: 0;
+  margin: 0;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* This is the important part: hide ALL text/table content in compare mode */
+.container.view-compare .road-block p,
+.container.view-compare .road-block table,
+.container.view-compare .road-block br {
+  display: none !important;
+}
+
+/* Keep only clean section title */
+.container.view-compare .road-block h2 {
+  font-size: 1.15rem;
+  text-align: center;
+  margin: 0 0 10px 0;
+  font-family: Inter, Arial, sans-serif;
+  font-weight: 650;
+}
+
+/* Make maps bigger and fill the card */
+.container.view-compare .map-container {
+  height: 46vh;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Hide references in compare mode to avoid clutter */
+.container.view-compare > h2:last-of-type,
+.container.view-compare > h2:last-of-type + p {
+  display: none;
+}
+
+/* Leaflet / map title / legend styling */
 .map-title {
   background: white;
   padding: 10px 14px;
   border-radius: 8px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-  font-family: Inter, sans-serif;
+  font-family: Inter, Arial, sans-serif;
 }
 
 .map-title h2 {
@@ -119,13 +275,12 @@ p {
   color: #666;
 }
 
-/* Legend */
 .legend {
   background: white;
   padding: 10px 14px;
   border-radius: 8px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-  font-family: Inter, sans-serif;
+  font-family: Inter, Arial, sans-serif;
   font-size: 13px;
 }
 
@@ -260,8 +415,51 @@ p {
   padding: 8px 0;
 }
 
+/* D3 axis styles if needed */
+.x-axis path,
+.y-axis path,
+.x-axis line,
+.y-axis line {
+  stroke: #333;
+  shape-rendering: crispEdges;
+}
+
+.x-axis text,
+.y-axis text {
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+}
+
+.axis-label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Mobile */
 @media (max-width: 900px) {
+  #road-sections-root.mode-compare.compare-cols-2,
+  #road-sections-root.mode-compare.compare-cols-3,
+  #road-sections-root.mode-compare.compare-cols-4 {
+      grid-template-columns: 1fr;
+  }
+
+  .container.view-compare .map-container {
+      height: 42vh;
+  }
   .traffic-summary-cards {
     grid-template-columns: 1fr;
   }
+}
+
+/* Hide introduction section in compare mode */
+.container.view-compare h2:first-of-type,
+.container.view-compare h2:first-of-type + p,
+.container.view-compare h2:first-of-type + p + p,
+.container.view-compare h2:first-of-type + p + p + p {
+    display: none;
+}
+
+/* Ensures that visualization overview is hidden in compare mode */
+.container.view-compare .explore-only {
+  display: none;
 }
