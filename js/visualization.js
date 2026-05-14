@@ -19,7 +19,7 @@ export function createVisualization({ containerId, data, title }) {
     const segments = data.network.segmentResults;
 
     // Set up the map.
-    const map = L.map(containerId, { zoomControl: false });
+    const map = L.map(containerId, { zoomControl: false, preferCanvas: true });
     // Auto-fit the bounds from all coordinates.
     let allCoords = [];
     segments.forEach(seg => {
@@ -162,7 +162,7 @@ export function createVisualization({ containerId, data, title }) {
             L.circleMarker(point, {
                 radius: travelTime / 25,
                 fillColor: getColor(speed, 0, speedLimit),
-                color: null,
+                weight: 0,
                 fillOpacity: 0.25
             }).addTo(map);
         }
