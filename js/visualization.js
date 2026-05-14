@@ -162,7 +162,7 @@ export function createVisualization({ containerId, data, title }) {
             L.circleMarker(point, {
                 radius: travelTime / 25,
                 fillColor: getColor(speed, 0, speedLimit),
-                color: null,
+                weight: 0,
                 fillOpacity: 0.25
             }).addTo(map);
         }
