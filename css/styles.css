@@ -271,6 +271,9 @@ p {
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 1.5rem 0 1rem;
+
+  max-width: 850px;
+  margin: 1.5rem auto 1rem auto;
 }
 
 .site-tab {
@@ -698,16 +701,6 @@ p {
     line-height: 1.15;
 }
 
-
-
-/* Hide introduction section in compare mode */
-.container.view-compare h2:first-of-type,
-.container.view-compare h2:first-of-type + p,
-.container.view-compare h2:first-of-type + p + p,
-.container.view-compare h2:first-of-type + p + p + p {
-    display: none;
-}
-
 /* Ensures that visualization overview is hidden in compare mode */
 .container.view-compare .explore-only {
   display: none;
@@ -824,4 +817,24 @@ p {
 .conclusion-card li {
   margin-bottom: 0.75rem;
   line-height: 1.6;
+}
+
+/* info callout box for the statistics tab */
+.info-callout {
+    background-color: #f0f9ff;
+    border-left: 4px solid #0284c7;
+    color: #0c4a6e;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 10px auto 30px auto;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 100%;
+}
+
+/* Prevent the overview from stretching when the container expands in Compare mode */
+.show-explore-compare {
+    max-width: 850px;
+    margin: 0 auto;
 }
