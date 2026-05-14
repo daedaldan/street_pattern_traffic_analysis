@@ -15,7 +15,6 @@ html {
     display: flex;
     align-items: center;
     padding: 4rem 2rem 3rem;
-    margin-left: calc(-1 * (4px + 1.5rem));
     border-bottom: 1px solid #e5e7eb;
     background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
 }
@@ -40,7 +39,8 @@ html {
 .intro-card {
     max-width: 850px;
     margin-top: 2rem;
-    padding-left: 1.5rem;
+    margin-left: calc(-1 * (4px + 1.15rem));
+    padding-left: 1.15rem;
     border-left: 4px solid #2b6cb0;
 }
 
