@@ -21,5 +21,19 @@ In each of the visualizations below, we show how a specific street pattern influ
 * Linear Pattern
 * Curvilinear/Suburban Pattern
 
+## AI Disclaimer
+Disclaimer: ChatGPT was used in a limited support capacity for front-end presentation tasks, including CSS formatting, border styling, and adjusting visual spacing/alignment of large website components. All core design, functionality, and project implementation decisions were completed independently.
+
 ## References
-TBA
+* Abley. (n.d.). Understanding TomTom traffic analytics. https://abley.com/our-insights/understanding-tomtom-traffic-analytics
+* Blumenfeld Lieberthal, E., Serok, N., Duan, J., Zeng, G., & Havlin, S. (2024). Addressing the urban congestion challenge based on traffic bottlenecks. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences, 382(2285). https://doi.org/10.1098/rsta.2024.0095
+* Boeing, G. (2014). The impact of urban street patterns on road safety (v1). HAL Open Science. https://shs.hal.science/halshs-00933810v1/document
+* GeoJSON. (n.d.). GeoJSON.io. https://geojson.tools/
+* Kaarwan. (n.d.). 6 urban street patterns that shape cities around the world. https://www.kaarwan.com/blog/architecture/6-urban-street-patterns-that-shape-cities-around-the-world?id=1840
+* Metropolitan Transportation Commission. (n.d.). Dangers of traffic congestion. https://mtc.ca.gov/news/dangers-traffic-congestion
+* OpenStreetMap Contributors. (n.d.). OpenStreetMap. https://www.openstreetmap.org/
+* Price, G. (2016, September 19). Those unsafe suburban curving streets. Viewpoint Vancouver. https://viewpointvancouver.ca/2016/09/19/those-unsafe-suburban-curving-streets/
+* Steuteville, R. (2019, June 17). The geometry of cities: A guide to every major street pattern. Sustainable Cities. https://medium.com/sustainable-cities/%EF%B8%8F-the-geometry-of-cities-a-guide-to-every-major-street-pattern-d2a4a0999138
+* TomTom. (n.d.). Traffic stats documentation: Product information introduction. https://developer.tomtom.com/traffic-stats/documentation/product-information/introduction
+
+

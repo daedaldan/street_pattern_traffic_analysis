@@ -107,7 +107,7 @@
                         <li><strong>Connect findings to planning decisions:</strong> Use the results to discuss where cities might benefit from alternate routes, transit investment, signal optimization, or traffic calming.</li>
                     </ul>
                 </div>
-
+                <div class="divider-line"></div>
                 <div>
                     <h2>References</h2>
                     <ul class="references-list">
@@ -364,7 +364,7 @@
         const compareWarning = document.getElementById("compare-warning");
         const statisticsPanel = document.getElementById("statistics-panel");
         const conclusionPanel = document.getElementById("conclusion-panel");
-        
+        const compareMetaBox = document.getElementById("compare-meta-note");
         const tabExploreBtn = document.getElementById("tab-btn-explore");
         const tabCompareBtn = document.getElementById("tab-btn-compare");
         const tabStatisticsBtn = document.getElementById("tab-btn-statistics");
@@ -424,7 +424,8 @@
 
         function updateCompareVisibility() {
             const types = orderedUniqueTypesFromSlots();
-
+            
+            compareMetaBox.classList.remove("is-hidden");
             compareWarning.classList.add("is-hidden");
             compareWarning.textContent = "";
 
@@ -541,10 +542,12 @@
             containerEl.classList.toggle("view-conclusion", isConclusion);
 
             if (isExplore) {
+                compareMetaBox.classList.add("is-hidden");
                 updateExploreVisibility();
             } else if (isCompare) {
                 updateCompareVisibility();
             } else {
+                compareMetaBox.classList.add("is-hidden");
                 hideRoadSections();
             }
         }
