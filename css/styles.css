@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
   font-family: 'Inter', Arial, sans-serif;
-  max-width: 60vw;
+  max-width: 100vw;
   margin: 0px auto;
   line-height: 1.8;
 }
@@ -104,6 +104,80 @@ html {
             transparent 100%
         );
 }
+.urban-suburban-divider {
+    margin: 5rem 0 3.5rem;
+
+    text-align: center;
+}
+
+.divider-line {
+    width: 100%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            #d1d5db,
+            transparent
+        );
+
+    margin-bottom: 1.5rem;
+}
+
+.divider-label {
+    font-family: 'Source Serif 4', serif;
+
+    font-size: 1.75rem;
+
+    font-weight: 500;
+
+    line-height: 1.2;
+
+    margin-bottom: 0.8rem;
+}
+
+.divider-description {
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    text-indent: 0;
+
+    line-height: 1.8;
+
+    font-size: 1rem;
+
+    color: #444;
+}
+
+.content-card {
+  background: #f8fbff;
+  border: 1px solid #dbe4f0;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.25rem 0 2rem;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.content-card h2 {
+  margin-top: 0;
+}
+
+.content-card p {
+  text-indent: 0;
+  color: #334155;
+}
+
+.content-card ul {
+  padding-left: 1.25rem;
+  margin-bottom: 0;
+}
+
+.content-card li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
 
 #main-content {
     position: relative;
@@ -197,6 +271,9 @@ p {
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 1.5rem 0 1rem;
+
+  max-width: 850px;
+  margin: 1.5rem auto 1rem auto;
 }
 
 .site-tab {
@@ -624,16 +701,6 @@ p {
     line-height: 1.15;
 }
 
-
-
-/* Hide introduction section in compare mode */
-.container.view-compare h2:first-of-type,
-.container.view-compare h2:first-of-type + p,
-.container.view-compare h2:first-of-type + p + p,
-.container.view-compare h2:first-of-type + p + p + p {
-    display: none;
-}
-
 /* Ensures that visualization overview is hidden in compare mode */
 .container.view-compare .explore-only {
   display: none;
@@ -713,4 +780,61 @@ p {
     line-height: 1.5;
 
     color: #334155;
+}
+
+
+/* Conclusion / Next Steps */
+.conclusion-panel {
+  margin-top: 2rem;
+}
+
+.conclusion-card {
+  background: #f8fbff;
+  border: 1px solid #dbe4f0;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.25rem 0;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.conclusion-card h3 {
+  color: #1f2937;
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.conclusion-card p {
+  text-indent: 0;
+  color: #334155;
+}
+
+.conclusion-card ul {
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+.conclusion-card li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+/* info callout box for the statistics tab */
+.info-callout {
+    background-color: #f0f9ff;
+    border-left: 4px solid #0284c7;
+    color: #0c4a6e;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 10px auto 30px auto;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 100%;
+}
+
+/* Prevent the overview from stretching when the container expands in Compare mode */
+.show-explore-compare {
+    max-width: 850px;
+    margin: 0 auto;
 }

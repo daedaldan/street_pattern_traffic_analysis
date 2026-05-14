@@ -18,7 +18,7 @@ export function createVisualization({ containerId, data, title }) {
     // Extract the road segments from the data.
     const segments = data.network.segmentResults;
 
-    // Set up the map. preferCanvas makes many circle markers cheap to pan (SVG paths are very slow).
+    // Set up the map.
     const map = L.map(containerId, { zoomControl: false, preferCanvas: true });
     // Auto-fit the bounds from all coordinates.
     let allCoords = [];
@@ -162,8 +162,7 @@ export function createVisualization({ containerId, data, title }) {
             L.circleMarker(point, {
                 radius: travelTime / 25,
                 fillColor: getColor(speed, 0, speedLimit),
-                // Canvas ignores color:null like SVG; omit stroke so dots stay light like before.
-                weight: 0,
+                color: null,
                 fillOpacity: 0.25
             }).addTo(map);
         }
