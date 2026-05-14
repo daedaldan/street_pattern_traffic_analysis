@@ -18,7 +18,7 @@
 
 <body>
     <!-- <div class="container"> -->
-    <section class="intro-hero explore-only">
+    <section class="intro-hero">
 
         <div class="intro-hero-content">
             <h1>From Gridlock to Insight: A Visual Approach to the Urban Traffic Crisis</h1>
@@ -48,7 +48,7 @@
                     </p>
 
                 <!-- SCROLL BUTTON -->
-            <a href="#main-content" class="scroll-cue">Explore the visualizations ↓</a>
+            <a href="#main-content" class="scroll-cue" id="dynamic-scroll-cue">Explore the visualizations ↓</a>
         </div>
     </section>
         <div id="main-content"></div>
@@ -58,11 +58,11 @@
                     <button type="button" class="site-tab is-active" id="tab-btn-explore" data-tab="explore" aria-selected="true">Article &amp; maps</button>
                     <button type="button" class="site-tab" id="tab-btn-compare" data-tab="compare" aria-selected="false">Compare road types</button>
                     <button type="button" class="site-tab" id="tab-btn-statistics" data-tab="statistics" aria-selected="false">Statistics</button>
-                    <button type="button" class="site-tab" id="tab-btn-conclusion" data-tab="conclusion" aria-selected="false">Conclusion &amp; Next Steps</button>
+                    <button type="button" class="site-tab" id="tab-btn-conclusion" data-tab="conclusion" aria-selected="false">Conclusion &amp; next steps</button>
                 </nav>
 
                 <!-- Visualization Overview -->
-                <div class="explore-only">
+                <div class="show-explore-compare">
                     <div class="content-card">
                         <h2>Visualization Overview</h2>
                         <p>In each of the visualizations below, we show how a specific street pattern influences traffic density by visualizing the street layout, number of cars, vehicle speeds, and travel times.</p>
@@ -80,6 +80,9 @@
             <!-- Traffic Cards -->
             <section id="statistics-panel" class="statistics-panel is-hidden" hidden>
                 <h2>Traffic Pattern Rankings</h2>
+                <div class="info-callout">
+                    <strong>ℹ️ Note:</strong> The Curvilinear pattern has been excluded from these rankings. Because it is designed for low-density suburban environments, directly comparing its statistics against dense urban grid networks is misleading.
+                </div>
                 <div id="traffic-summary-cards" class="traffic-summary-cards"></div>
             </section>
 
@@ -334,7 +337,7 @@
                 <div class="content-card">
                     <h2>Development Process</h2>
                     <ul>
-                        <li>Gavin created the curvilinear/suburban visualization and the info cards ranking the traffic patterns.</li>
+                        <li>Gavin created the curvilinear/suburban visualization and the info cards ranking the traffic patterns (as well as adding final minor touches before submission).</li>
                         <li>Nathan created the linear visualization and the info cards ranking the traffic patterns.</li>
                         <li>Carolyn wrote the documentation for the project, compiled references, and helped conceptualize the project.</li>
                         <li>Lasya created the radial visualization, implemented the dropdown to filter the visualizations by street layout on the maps tab, and created the roadtype comparison feature in the compairson tab.</li>
@@ -371,6 +374,8 @@
         const tabConclusionBtn = document.getElementById("tab-btn-conclusion");
 
         const exploreOnlyElements = Array.from(document.querySelectorAll(".explore-only"));
+        const exploreCompareElements = Array.from(document.querySelectorAll(".show-explore-compare"));
+        const dynamicScrollCue = document.getElementById("dynamic-scroll-cue");
 
         const compareSlotSelects = [
             document.getElementById("compare-slot-1"),
@@ -510,6 +515,17 @@
             const isStatistics = tab === "statistics";
             const isConclusion = tab === "conclusion";
 
+            // Update the scroll button text dynamically
+            const scrollTexts = {
+                "explore": "Explore all the visualizations ↓",
+                "compare": "Compare different visualizations ↓",
+                "statistics": "View the statistics ↓",
+                "conclusion": "In closing... ↓"
+            };
+            if (dynamicScrollCue) {
+                dynamicScrollCue.textContent = scrollTexts[tab];
+            }
+
             tabExploreBtn.classList.toggle("is-active", isExplore);
             tabCompareBtn.classList.toggle("is-active", isCompare);
             tabStatisticsBtn.classList.toggle("is-active", isStatistics);
@@ -535,6 +551,10 @@
 
             exploreOnlyElements.forEach((el) => {
                 el.classList.toggle("is-hidden", !isExplore);
+            });
+
+            exploreCompareElements.forEach((el) => {
+                el.classList.toggle("is-hidden", !(isExplore || isCompare));
             });
 
             containerEl.classList.toggle("view-compare", isCompare);
